@@ -103,6 +103,8 @@ private: // private properties.
 	const Uint8* m_keystates;
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
+	SDL_Texture* m_testBackground;
+	Sprite m_ground;
 
 
 private: // private method prototypes.
