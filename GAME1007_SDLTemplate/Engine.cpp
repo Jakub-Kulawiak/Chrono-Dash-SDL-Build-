@@ -2,6 +2,7 @@
 #include "SDL_image.h"
 
 
+
 int Engine::Init(const char* title, int xPos, int yPos, int width, int height, int flags)
 {
 	cout << "Initializing engine..." << endl;
@@ -21,7 +22,7 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 				if (IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) != 0)
 				{
 					m_testBackground = IMG_LoadTexture(m_pRenderer, "Test_ground.png");
-				
+					m_testPlayer = IMG_LoadTexture(m_pRenderer, "Idle.png");
 				}
 				else return false; // Image initialization failed
 				if (Mix_Init(MIX_INIT_MP3) != 0)
@@ -43,6 +44,7 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 	m_fps = (Uint32)round(1.0 / (double)FPS * 1000); // Converts FPS into milliseconds, e.g. 16.67
 	m_keystates = SDL_GetKeyboardState(nullptr);
 	m_ground.SetRekts({ 0,0,600, 385 }, { 0, 0, 1024, 600 });
+	m_player.SetRekts({ 0,0,43,53 }, { 250,250, 43,53 });
 	cout << "Initialization successful!" << endl;
 	m_running = true;
 	return true;
@@ -84,7 +86,15 @@ bool Engine::KeyDown(SDL_Scancode c)
 
 void Engine::Update()
 {	
-	
+	//player movement
+	if (KeyDown(SDL_SCANCODE_W) && m_player.GetRectDst()->y > 0)
+		m_player.GetRectDst()->y -= m_speed;
+	else if (KeyDown(SDL_SCANCODE_S) && m_player.GetRectDst()->y < HEIGHT - m_player.GetRectDst()->h)
+		m_player.GetRectDst()->y += m_speed;
+	if (KeyDown(SDL_SCANCODE_A) && m_player.GetRectDst()->x > 0)
+		m_player.GetRectDst()->x -= m_speed;
+	else if (KeyDown(SDL_SCANCODE_D) && m_player.GetRectDst()->x < 1024)
+		m_player.GetRectDst()->x += m_speed;
 }
 
 void Engine::Render()
@@ -93,9 +103,9 @@ void Engine::Render()
 	SDL_RenderClear(m_pRenderer);
 	
 	SDL_RenderCopy(m_pRenderer, m_testBackground , m_ground.GetRectSrc(), m_ground.GetRectDst());
+	SDL_RenderCopy(m_pRenderer, m_testPlayer, m_player.GetRectSrc(), m_player.GetRectDst());
 
-
-
+	
 	SDL_RenderPresent(m_pRenderer); // Flip buffers - send data to window.
 }
 
@@ -139,6 +149,7 @@ void Engine::Clean()
 {
 	cout << "Cleaning engine..." << endl;
 	SDL_DestroyTexture(m_testBackground);
+	SDL_DestroyTexture(m_testPlayer);
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_DestroyRenderer(m_pRenderer);

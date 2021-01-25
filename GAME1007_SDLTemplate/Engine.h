@@ -20,10 +20,10 @@ protected:
 	SDL_Rect m_dst;
 public:
 
-	void SetRekts(const SDL_Rect s, const SDL_Rect d)
+	void SetRekts(const SDL_Rect src, const SDL_Rect dst)
 	{
-		m_src = s;
-		m_dst = d;
+		m_src = src;
+		m_dst = dst;
 	}
 	SDL_Rect* GetRectSrc()
 	{
@@ -38,12 +38,7 @@ public:
 		m_dst.x -= 2;
 	}
 
-	Sprite()
-	{
-		
-		this->SetRekts({ 0,0,57,62 }, { 1+rand()%1025, 60 + rand() % 600, 57, 62 });
 
-	}
 };
 
 class AnimatedSprite :public Sprite
@@ -103,8 +98,17 @@ private: // private properties.
 	const Uint8* m_keystates;
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
+
+	// variables (temporary)
+	int m_speed = 4;
+
+	
+	// textures (consider implementing texture map when figured out)
 	SDL_Texture* m_testBackground;
+	SDL_Texture* m_testPlayer;
+	// sprites
 	Sprite m_ground;
+	AnimatedSprite m_player;
 
 
 private: // private method prototypes.
