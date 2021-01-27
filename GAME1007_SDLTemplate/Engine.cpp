@@ -21,8 +21,8 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 				// Initialize subsystems later...
 				if (IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) != 0)
 				{
-					m_testBackground = IMG_LoadTexture(m_pRenderer, "Test_ground.png");
-					m_testPlayer = IMG_LoadTexture(m_pRenderer, "Idle.png");
+					m_testBackground = IMG_LoadTexture(m_pRenderer, "Textures/Test_ground.png");
+					m_testPlayer = IMG_LoadTexture(m_pRenderer, "Textures/Idle.png");
 				}
 				else return false; // Image initialization failed
 				if (Mix_Init(MIX_INIT_MP3) != 0)
