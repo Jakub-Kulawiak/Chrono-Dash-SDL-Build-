@@ -43,8 +43,8 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 	else return false; // initalization failed.
 	m_fps = (Uint32)round(1.0 / (double)FPS * 1000); // Converts FPS into milliseconds, e.g. 16.67
 	m_keystates = SDL_GetKeyboardState(nullptr);
-	m_ground.SetRekts({ 0,0,600, 385 }, { 0, 0, 1024, 600 });
-	m_player.SetRekts({ 0,0,43,53 }, { 250,250, 43,53 });
+	m_ground.SetRekts({ 0,0,600, 385 }, { 0, 500, 1024, 102 });
+	m_player.SetRekts({ 0,0,43,53 }, { 250, 400, 43,53 });
 	cout << "Initialization successful!" << endl;
 	m_running = true;
 	return true;
@@ -66,9 +66,9 @@ void Engine::HandleEvents()
 			m_running = false;
 			break;
 		case SDL_KEYUP:
-				if (event.key.keysym.sym == ' ')
+				if (event.key.keysym.sym == 'w')
 				{
-					
+					m_player.GetRectDst()->y -= m_jumpForce;
 				}
 		}
 	}
@@ -87,13 +87,14 @@ bool Engine::KeyDown(SDL_Scancode c)
 void Engine::Update()
 {	
 	//player movement
-	if (KeyDown(SDL_SCANCODE_W) && m_player.GetRectDst()->y > 0)
-		m_player.GetRectDst()->y -= m_speed;
-	else if (KeyDown(SDL_SCANCODE_S) && m_player.GetRectDst()->y < HEIGHT - m_player.GetRectDst()->h)
-		m_player.GetRectDst()->y += m_speed;
+	if (!SDL_HasIntersection(m_player.GetRectDst(), m_ground.GetRectDst()))
+	{
+		m_player.GetRectDst()->y += m_gravity;
+	}
+
 	if (KeyDown(SDL_SCANCODE_A) && m_player.GetRectDst()->x > 0)
 		m_player.GetRectDst()->x -= m_speed;
-	else if (KeyDown(SDL_SCANCODE_D) && m_player.GetRectDst()->x < 1024)
+	else if (KeyDown(SDL_SCANCODE_D) && m_player.GetRectDst()->x < 1024 && !KeyDown(SDL_SCANCODE_A))
 		m_player.GetRectDst()->x += m_speed;
 }
 
