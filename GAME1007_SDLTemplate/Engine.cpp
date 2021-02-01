@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "SDL_image.h"
+#include "EndGoal.h"
 
 
 
@@ -75,7 +76,11 @@ void Engine::HandleEvents()
 		case SDL_KEYUP:
 				if (event.key.keysym.sym == ' ')
 				{
-					
+					//spawn bullet
+
+					m_bullets.push_back(new Bullet({ m_player.GetRectDst()->x, m_player.GetRectDst()->y }));
+					m_bullets.shrink_to_fit();
+					cout << "New bullet vector capacity: " << m_bullets.capacity() << endl;
 				}
 		}
 	}
@@ -92,47 +97,70 @@ bool Engine::KeyDown(SDL_Scancode c)
 }
 
 void Engine::Update()
-{	
-		// Hit Detection
-		if (SDL_HasIntersection(m_endGoal.GetRectDst(), m_player.GetRectDst()))
-		{
-		
-			cout << "Level Complete... (or something like that)" << endl;
-			m_player.SetRekts({ 0,0,43,53 }, { 250,250, 43,53 });
-		}
+{
 
 
-		if (m_ground.GetRectDst()->x <= -m_ground.GetRectDst()->w) // when bg1 is completely off screen
-		{
-			// teleport back to the start of bg1
-			m_ground.GetRectDst()->x = 0;
-			m_ground2.GetRectDst()->x = WIDTH;
-		}
 
-		//player movement
-		if (KeyDown(SDL_SCANCODE_W) && m_player.GetRectDst()->y > 0)
-			m_player.GetRectDst()->y -= m_speed;
-		else if (KeyDown(SDL_SCANCODE_S) && m_player.GetRectDst()->y < HEIGHT - m_player.GetRectDst()->h)
-			m_player.GetRectDst()->y += m_speed;
-		if (KeyDown(SDL_SCANCODE_A) && m_player.GetRectDst()->x > 400)
-		{
-			m_player.GetRectDst()->x -= m_speed;
-		}
-		else if (KeyDown(SDL_SCANCODE_D) && m_player.GetRectDst()->x < 600)
-		{
-			m_player.GetRectDst()->x += m_speed;
+	// Hit Detection
+	if (SDL_HasIntersection(m_endGoal.GetRectDst(), m_player.GetRectDst()))
+	{
 
-		}
-		if (m_player.GetRectDst()->x > 600 && (KeyDown(SDL_SCANCODE_D)))
+		cout << "Level Complete... (or something like that)" << endl;
+		m_player.SetRekts({ 0,0,43,53 }, { 250,250, 43,53 });
+	}
+
+
+	if (m_ground.GetRectDst()->x <= -m_ground.GetRectDst()->w) // when bg1 is completely off screen
+	{
+		// teleport back to the start of bg1
+		m_ground.GetRectDst()->x = 0;
+		m_ground2.GetRectDst()->x = WIDTH;
+	}
+
+	//player movement
+	if (KeyDown(SDL_SCANCODE_W) && m_player.GetRectDst()->y > 0)
+		m_player.GetRectDst()->y -= m_speed;
+	else if (KeyDown(SDL_SCANCODE_S) && m_player.GetRectDst()->y < HEIGHT - m_player.GetRectDst()->h)
+		m_player.GetRectDst()->y += m_speed;
+	if (KeyDown(SDL_SCANCODE_A) && m_player.GetRectDst()->x > 400)
+	{
+		m_player.GetRectDst()->x -= m_speed;
+
+	}
+	else if (KeyDown(SDL_SCANCODE_D) && m_player.GetRectDst()->x < 600)
+	{
+		m_player.GetRectDst()->x += m_speed;
+
+	}
+	if (m_player.GetRectDst()->x > 600 && (KeyDown(SDL_SCANCODE_D)))
+	{
+		m_endGoal.EndGoal::Update();
+		m_ground.GetRectDst()->x -= m_speed / 2;
+		m_ground2.GetRectDst()->x -= m_speed / 2;
+	}
+	if (m_player.GetRectDst()->x < 400 && (KeyDown(SDL_SCANCODE_A)))
+	{
+		m_ground.GetRectDst()->x += m_speed / 2;
+		m_ground2.GetRectDst()->x += m_speed / 2;
+	}
+
+	for (unsigned i = 0; i < m_bullets.size(); i++)  // size is filled num of elements
+	{
+		m_bullets[i]->Update();  // long way: (*bill).Update() 
+	}
+	// check bullets are onscreen
+	for (unsigned i = 0; i < m_bullets.size(); i++)
+	{
+		if (m_bullets[i]->GetRekt()->x >= 1032)
 		{
-			m_ground.GetRectDst()->x -= m_speed / 2;
-			m_ground2.GetRectDst()->x -= m_speed / 2;
+			delete m_bullets[i]; // flag for relocation
+			m_bullets[i] = nullptr; // rangle your dangle
+			m_bullets.erase(m_bullets.begin() + i);
+			m_bullets.shrink_to_fit();
+			break;
 		}
-		if (m_player.GetRectDst()->x < 400 && (KeyDown(SDL_SCANCODE_A)))
-		{
-			m_ground.GetRectDst()->x += m_speed / 2;
-			m_ground2.GetRectDst()->x += m_speed / 2;
-		}
+	}
+
 }
 
 void Engine::Render()
@@ -145,7 +173,10 @@ void Engine::Render()
 	SDL_RenderCopy(m_pRenderer, m_endGoalTexture, m_endGoal.GetRectSrc(), m_endGoal.GetRectDst());
 	SDL_RenderCopy(m_pRenderer, m_testPlayer, m_player.GetRectSrc(), m_player.GetRectDst());
 	
-	
+	for (unsigned i = 0; i < m_bullets.size(); i++)  // size is filled num of elements
+	{
+		m_bullets[i]->Render(m_pRenderer);
+	}
 
 	SDL_RenderPresent(m_pRenderer); // Flip buffers - send data to window.
 }
@@ -189,6 +220,15 @@ int Engine::Run()
 void Engine::Clean()
 {
 	cout << "Cleaning engine..." << endl;
+
+	for (unsigned i = 0; i < m_bullets.size(); i++)
+	{
+		delete m_bullets[i]; // flag for relocation
+		m_bullets[i] = nullptr; // rangle your dangle
+	}
+	m_bullets.clear(); // wipe out
+	m_bullets.shrink_to_fit(); // reduces capacity to size
+	
 	SDL_DestroyTexture(m_testBackground);
 	SDL_DestroyTexture(m_testPlayer);
 	SDL_DestroyTexture(m_endGoalTexture);

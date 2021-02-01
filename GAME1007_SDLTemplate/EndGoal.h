@@ -15,6 +15,7 @@ public:
 	void SetRekts(const SDL_Rect src, const SDL_Rect dst);
 	SDL_Rect* GetRectSrc();
 	SDL_Rect* GetRectDst();
+	void Update();
 };
 
 #endif
