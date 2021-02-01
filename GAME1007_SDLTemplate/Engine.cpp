@@ -47,6 +47,7 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 	m_fps = (Uint32)round(1.0 / (double)FPS * 1000); // Converts FPS into milliseconds, e.g. 16.67
 	m_keystates = SDL_GetKeyboardState(nullptr);
 	m_ground.SetRekts({ 0,0,600, 385 }, { 0, 0, 1024, 600 });
+	m_ground2.SetRekts({ 0,0,600, 385 }, { WIDTH, 0, 1024, 600 });
 	m_player.SetRekts({ 0,0,43,53 }, { 250,250, 43,53 });
 	m_endGoal.SetRekts({ 0,0,64,122 }, { 920,380, 64,122 });
 
@@ -101,16 +102,37 @@ void Engine::Update()
 		}
 
 
+		if (m_ground.GetRectDst()->x <= -m_ground.GetRectDst()->w) // when bg1 is completely off screen
+		{
+			// teleport back to the start of bg1
+			m_ground.GetRectDst()->x = 0;
+			m_ground2.GetRectDst()->x = WIDTH;
+		}
 
-	//player movement
-	if (KeyDown(SDL_SCANCODE_W) && m_player.GetRectDst()->y > 0)
-		m_player.GetRectDst()->y -= m_speed;
-	else if (KeyDown(SDL_SCANCODE_S) && m_player.GetRectDst()->y < HEIGHT - m_player.GetRectDst()->h)
-		m_player.GetRectDst()->y += m_speed;
-	if (KeyDown(SDL_SCANCODE_A) && m_player.GetRectDst()->x > 0)
-		m_player.GetRectDst()->x -= m_speed;
-	else if (KeyDown(SDL_SCANCODE_D) && m_player.GetRectDst()->x < 1024)
-		m_player.GetRectDst()->x += m_speed;
+		//player movement
+		if (KeyDown(SDL_SCANCODE_W) && m_player.GetRectDst()->y > 0)
+			m_player.GetRectDst()->y -= m_speed;
+		else if (KeyDown(SDL_SCANCODE_S) && m_player.GetRectDst()->y < HEIGHT - m_player.GetRectDst()->h)
+			m_player.GetRectDst()->y += m_speed;
+		if (KeyDown(SDL_SCANCODE_A) && m_player.GetRectDst()->x > 400)
+		{
+			m_player.GetRectDst()->x -= m_speed;
+		}
+		else if (KeyDown(SDL_SCANCODE_D) && m_player.GetRectDst()->x < 600)
+		{
+			m_player.GetRectDst()->x += m_speed;
+
+		}
+		if (m_player.GetRectDst()->x > 600 && (KeyDown(SDL_SCANCODE_D)))
+		{
+			m_ground.GetRectDst()->x -= m_speed / 2;
+			m_ground2.GetRectDst()->x -= m_speed / 2;
+		}
+		if (m_player.GetRectDst()->x < 400 && (KeyDown(SDL_SCANCODE_A)))
+		{
+			m_ground.GetRectDst()->x += m_speed / 2;
+			m_ground2.GetRectDst()->x += m_speed / 2;
+		}
 }
 
 void Engine::Render()
@@ -119,6 +141,7 @@ void Engine::Render()
 	SDL_RenderClear(m_pRenderer);
 	
 	SDL_RenderCopy(m_pRenderer, m_testBackground , m_ground.GetRectSrc(), m_ground.GetRectDst());
+	SDL_RenderCopy(m_pRenderer, m_testBackground, m_ground2.GetRectSrc(), m_ground2.GetRectDst());
 	SDL_RenderCopy(m_pRenderer, m_endGoalTexture, m_endGoal.GetRectSrc(), m_endGoal.GetRectDst());
 	SDL_RenderCopy(m_pRenderer, m_testPlayer, m_player.GetRectSrc(), m_player.GetRectDst());
 	

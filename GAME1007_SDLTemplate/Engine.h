@@ -110,7 +110,7 @@ private: // private properties.
 	SDL_Texture* m_endGoalTexture;
 
 	// sprites
-	Sprite m_ground;
+	Sprite m_ground, m_ground2;
 	AnimatedSprite m_player;
 	EndGoal m_endGoal;
 
