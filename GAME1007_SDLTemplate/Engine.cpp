@@ -65,11 +65,16 @@ void Engine::HandleEvents()
 		case SDL_QUIT:
 			m_running = false;
 			break;
+		
 		case SDL_KEYUP:
-				if (event.key.keysym.sym == ' ')
-				{
-					
-				}
+			if (event.key.keysym.sym == ' ')
+			{
+				//spawn bullet
+
+				m_bullets.push_back(new Bullet({ m_player.GetRectDst()->x, m_player.GetRectDst()->y }));
+				m_bullets.shrink_to_fit();
+				cout << "New bullet vector capacity: " << m_bullets.capacity() << endl;
+			}
 		}
 	}
 }
@@ -95,6 +100,23 @@ void Engine::Update()
 		m_player.GetRectDst()->x -= m_speed;
 	else if (KeyDown(SDL_SCANCODE_D) && m_player.GetRectDst()->x < 1024)
 		m_player.GetRectDst()->x += m_speed;
+
+	for (unsigned i = 0; i < m_bullets.size(); i++)  // size is filled num of elements
+	{
+		m_bullets[i]->Update();  // long way: (*bill).Update() 
+	}
+	// check bullets are onscreen
+	for (unsigned i = 0; i < m_bullets.size(); i++)
+	{
+		if (m_bullets[i]->GetRekt()->x >= 1032)
+		{
+			delete m_bullets[i]; // flag for relocation
+			m_bullets[i] = nullptr; // rangle your dangle
+			m_bullets.erase(m_bullets.begin() + i);
+			m_bullets.shrink_to_fit();
+			break;
+		}
+	}
 }
 
 void Engine::Render()
@@ -105,6 +127,11 @@ void Engine::Render()
 	SDL_RenderCopy(m_pRenderer, m_testBackground , m_ground.GetRectSrc(), m_ground.GetRectDst());
 	SDL_RenderCopy(m_pRenderer, m_testPlayer, m_player.GetRectSrc(), m_player.GetRectDst());
 
+
+	for (unsigned i = 0; i < m_bullets.size(); i++)  // size is filled num of elements
+	{
+		m_bullets[i]->Render(m_pRenderer);
+	}
 	
 	SDL_RenderPresent(m_pRenderer); // Flip buffers - send data to window.
 }
@@ -148,6 +175,15 @@ int Engine::Run()
 void Engine::Clean()
 {
 	cout << "Cleaning engine..." << endl;
+
+	for (unsigned i = 0; i < m_bullets.size(); i++)
+	{
+		delete m_bullets[i]; // flag for relocation
+		m_bullets[i] = nullptr; // rangle your dangle
+	}
+	m_bullets.clear(); // wipe out
+	m_bullets.shrink_to_fit(); // reduces capacity to size
+
 	SDL_DestroyTexture(m_testBackground);
 	SDL_DestroyTexture(m_testPlayer);
 	Mix_CloseAudio();

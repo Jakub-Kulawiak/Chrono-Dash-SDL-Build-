@@ -90,6 +90,47 @@ public:
 	}
 };
 
+class Bullet
+{
+private:
+	SDL_Rect m_rect; // rect ofr dst
+public:
+	Bullet(SDL_Point spawnLoc = { 512, 384 }) // non-defalut constrctor
+	{
+		this->m_rect.x = spawnLoc.x;
+		this->m_rect.y = spawnLoc.y;
+		this->m_rect.w = 8;
+		this->m_rect.h = 8;
+
+	}
+
+	~Bullet() // Destructor
+	{
+		cout << "de-alocating bullet" << endl;
+	}
+
+	void SetLoc(SDL_Point loc)
+	{
+		m_rect.x = loc.x;
+		m_rect.y = loc.y;
+	}
+
+	void Update()
+	{
+		this->m_rect.x += 3;
+	}
+	void Render(SDL_Renderer* rend)
+	{
+		SDL_SetRenderDrawColor(rend, 255, 25, 0, 255);
+		SDL_RenderFillRect(rend, &m_rect);
+	}
+
+	SDL_Rect* GetRekt()
+	{
+		return &m_rect;
+	}
+};
+
 class Engine
 {
 private: // private properties.
@@ -110,6 +151,7 @@ private: // private properties.
 	Sprite m_ground;
 	AnimatedSprite m_player;
 
+	vector<Bullet*> m_bullets;
 
 private: // private method prototypes.
 	int Init(const char* title, int xPos, int yPos, int width, int height, int flags);
