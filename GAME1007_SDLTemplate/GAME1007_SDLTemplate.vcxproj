@@ -141,16 +141,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EndGoal.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Scroll.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EndGoal.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Scroll.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\Pictures\game concept\Idle.png" />
+    <Image Include="Textures\Idle.png" />
+    <Image Include="Textures\PortalTest.png" />
     <Image Include="Textures\Test_ground.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

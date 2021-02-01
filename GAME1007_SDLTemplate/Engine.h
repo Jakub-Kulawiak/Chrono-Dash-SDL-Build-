@@ -8,6 +8,7 @@
 #include "SDL_mixer.h"
 #include <iostream>
 #include<time.h>
+#include "EndGoal.h"
 #define FPS 120
 #define WIDTH 1024
 #define HEIGHT 768
@@ -106,9 +107,15 @@ private: // private properties.
 	// textures (consider implementing texture map when figured out)
 	SDL_Texture* m_testBackground;
 	SDL_Texture* m_testPlayer;
+	SDL_Texture* m_endGoalTexture;
+
 	// sprites
 	Sprite m_ground;
 	AnimatedSprite m_player;
+	EndGoal m_endGoal;
+
+	
+	
 
 
 private: // private method prototypes.
