@@ -47,10 +47,10 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 	else return false; // initalization failed.
 	m_fps = (Uint32)round(1.0 / (double)FPS * 1000); // Converts FPS into milliseconds, e.g. 16.67
 	m_keystates = SDL_GetKeyboardState(nullptr);
-	m_ground.SetRekts({ 0,0,600, 385 }, { 0, 0, 1024, 600 });
-	m_ground2.SetRekts({ 0,0,600, 385 }, { WIDTH, 0, 1024, 600 });
+	m_ground.SetRekts({ 0,0,600, 385 }, { 0, 500, 1024, 102 });
+	m_ground2.SetRekts({ 0,0,600, 385 }, { WIDTH, 500, 1024, 102 });
 	m_player.SetRekts({ 0,0,43,53 }, { 250,250, 43,53 });
-	m_endGoal.SetRekts({ 0,0,64,122 }, { 920,380, 64,122 });
+	m_endGoal.SetRekts({ 0,0,64,122 }, { 2040,380, 64,122 });
 
 	
 	cout << "Initialization successful!" << endl;
@@ -82,6 +82,13 @@ void Engine::HandleEvents()
 					m_bullets.shrink_to_fit();
 					cout << "New bullet vector capacity: " << m_bullets.capacity() << endl;
 				}
+
+				if (event.key.keysym.sym == 'w')
+				{
+					m_player.GetRectDst()->y -= m_jumpForce;
+				}
+
+			
 		}
 	}
 }
@@ -99,14 +106,19 @@ bool Engine::KeyDown(SDL_Scancode c)
 void Engine::Update()
 {
 
-
+	if ((!SDL_HasIntersection(m_player.GetRectDst(), m_ground.GetRectDst())) && (!SDL_HasIntersection(m_player.GetRectDst(), m_ground2.GetRectDst())))
+	{
+		m_player.GetRectDst()->y += m_gravity;
+	}
+	
+	
 
 	// Hit Detection
 	if (SDL_HasIntersection(m_endGoal.GetRectDst(), m_player.GetRectDst()))
 	{
 
 		cout << "Level Complete... (or something like that)" << endl;
-		m_player.SetRekts({ 0,0,43,53 }, { 250,250, 43,53 });
+		m_running = false;
 	}
 
 
@@ -118,10 +130,7 @@ void Engine::Update()
 	}
 
 	//player movement
-	if (KeyDown(SDL_SCANCODE_W) && m_player.GetRectDst()->y > 0)
-		m_player.GetRectDst()->y -= m_speed;
-	else if (KeyDown(SDL_SCANCODE_S) && m_player.GetRectDst()->y < HEIGHT - m_player.GetRectDst()->h)
-		m_player.GetRectDst()->y += m_speed;
+	
 	if (KeyDown(SDL_SCANCODE_A) && m_player.GetRectDst()->x > 400)
 	{
 		m_player.GetRectDst()->x -= m_speed;

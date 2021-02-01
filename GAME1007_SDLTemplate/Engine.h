@@ -142,7 +142,7 @@ private: // private properties.
 	SDL_Renderer* m_pRenderer;
 
 	// variables (temporary)
-	int m_speed = 4;
+	int m_speed = 4, m_gravity = 6, m_jumpForce = 100;
 
 	
 	// textures (consider implementing texture map when figured out)
