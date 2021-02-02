@@ -91,6 +91,23 @@ public:
 	}
 };
 
+class EnemySprite :public Sprite
+{
+private:
+
+public:
+
+	void SetRects(SDL_Rect s, SDL_Rect d)
+	{
+		m_src = s;
+		m_dst = d;
+	}
+
+
+
+
+};
+
 class Bullet
 {
 private:
@@ -149,12 +166,12 @@ private: // private properties.
 	SDL_Texture* m_testBackground;
 	SDL_Texture* m_testPlayer;
 	SDL_Texture* m_endGoalTexture;
-
+	SDL_Texture* m_testEnemy;
 	// sprites
 	Sprite m_ground, m_ground2;
 	AnimatedSprite m_player;
 	EndGoal m_endGoal;
-
+	EnemySprite m_enemy;
 	vector<Bullet*> m_bullets;
 	
 

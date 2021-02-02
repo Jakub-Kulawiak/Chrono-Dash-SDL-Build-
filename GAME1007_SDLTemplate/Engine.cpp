@@ -26,6 +26,7 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 					m_testBackground = IMG_LoadTexture(m_pRenderer, "Textures/Test_ground.png");
 					m_testPlayer = IMG_LoadTexture(m_pRenderer, "Textures/Idle.png");
 					m_endGoalTexture = IMG_LoadTexture(m_pRenderer, "Textures/PortalTest.png");
+					m_testEnemy = IMG_LoadTexture(m_pRenderer, "Textures/enemy.png");
 					
 				}
 				else return false; // Image initialization failed
@@ -51,7 +52,7 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 	m_ground2.SetRekts({ 0,0,600, 385 }, { WIDTH, 500, 1024, 102 });
 	m_player.SetRekts({ 0,0,43,53 }, { 250,250, 43,53 });
 	m_endGoal.SetRekts({ 0,0,64,122 }, { 2040,380, 64,122 });
-
+	m_enemy.SetRekts({ 0,0,225,225}, { 950,445, 53,53 });
 	
 	cout << "Initialization successful!" << endl;
 	m_running = true;
@@ -110,8 +111,18 @@ void Engine::Update()
 	{
 		m_player.GetRectDst()->y += m_gravity;
 	}
-	
-	
+	for (unsigned i = 0; i < m_bullets.size(); i++)
+		if (SDL_HasIntersection(m_enemy.GetRectDst(), m_bullets[i]->GetRekt()))
+		{
+			cout << "Enemy Destroyed!" << endl;
+			m_enemy.GetRectDst()->x += 10000;
+
+		}
+	if (SDL_HasIntersection(m_enemy.GetRectDst(), m_player.GetRectDst()))
+	{
+		cout << "You lose" << endl;
+		m_running = false;
+	}
 
 	// Hit Detection
 	if (SDL_HasIntersection(m_endGoal.GetRectDst(), m_player.GetRectDst()))
@@ -144,6 +155,7 @@ void Engine::Update()
 	if (m_player.GetRectDst()->x > 600 && (KeyDown(SDL_SCANCODE_D)))
 	{
 		m_endGoal.EndGoal::Update();
+		m_enemy.GetRectDst()->x -= m_speed ;
 		m_ground.GetRectDst()->x -= m_speed / 2;
 		m_ground2.GetRectDst()->x -= m_speed / 2;
 	}
@@ -181,7 +193,7 @@ void Engine::Render()
 	SDL_RenderCopy(m_pRenderer, m_testBackground, m_ground2.GetRectSrc(), m_ground2.GetRectDst());
 	SDL_RenderCopy(m_pRenderer, m_endGoalTexture, m_endGoal.GetRectSrc(), m_endGoal.GetRectDst());
 	SDL_RenderCopy(m_pRenderer, m_testPlayer, m_player.GetRectSrc(), m_player.GetRectDst());
-	
+	SDL_RenderCopy(m_pRenderer, m_testEnemy, m_enemy.GetRectSrc(), m_enemy.GetRectDst());
 	for (unsigned i = 0; i < m_bullets.size(); i++)  // size is filled num of elements
 	{
 		m_bullets[i]->Render(m_pRenderer);
@@ -241,6 +253,7 @@ void Engine::Clean()
 	SDL_DestroyTexture(m_testBackground);
 	SDL_DestroyTexture(m_testPlayer);
 	SDL_DestroyTexture(m_endGoalTexture);
+	SDL_DestroyTexture(m_testEnemy);
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_DestroyRenderer(m_pRenderer);
