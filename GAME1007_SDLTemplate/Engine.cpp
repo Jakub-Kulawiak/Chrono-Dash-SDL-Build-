@@ -24,6 +24,9 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 				if (IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) != 0)
 				{
 					m_testBackground = IMG_LoadTexture(m_pRenderer, "Textures/Test_ground.png");
+					m_realBackground0 = IMG_LoadTexture(m_pRenderer, "Textures/background_0.png");
+					m_realBackground1 = IMG_LoadTexture(m_pRenderer, "Textures/background_1.png");
+					m_realBackground2 = IMG_LoadTexture(m_pRenderer, "Textures/background_2.png");
 					m_testPlayer = IMG_LoadTexture(m_pRenderer, "Textures/Idle.png");
 					m_endGoalTexture = IMG_LoadTexture(m_pRenderer, "Textures/PortalTest.png");
 					m_testEnemy = IMG_LoadTexture(m_pRenderer, "Textures/enemy.png");
@@ -48,8 +51,17 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 	else return false; // initalization failed.
 	m_fps = (Uint32)round(1.0 / (double)FPS * 1000); // Converts FPS into milliseconds, e.g. 16.67
 	m_keystates = SDL_GetKeyboardState(nullptr);
+	m_back0.SetRekts({ 0,0,WIDTH, HEIGHT }, { 0, 0, WIDTH, HEIGHT });
+
+	m_back1.SetRekts({ 0,0,WIDTH, HEIGHT }, { 0, 0, WIDTH, HEIGHT });
+	m_back1Scroll.SetRekts({ 0,0,WIDTH, HEIGHT }, { WIDTH, 0, WIDTH, HEIGHT });
+
+	m_back2.SetRekts({ 0,0,WIDTH, HEIGHT }, { 0, 0, WIDTH, HEIGHT });
+	m_back2Scroll.SetRekts({ 0,0,WIDTH, HEIGHT }, { WIDTH, 0, WIDTH, HEIGHT });
+
 	m_ground.SetRekts({ 0,0,600, 385 }, { 0, 500, 1024, 102 });
 	m_ground2.SetRekts({ 0,0,600, 385 }, { WIDTH, 500, 1024, 102 });
+
 	m_player.SetRekts({ 0,0,43,53 }, { 250,250, 43,53 });
 	m_endGoal.SetRekts({ 0,0,64,122 }, { 2040,380, 64,122 });
 	m_enemy.SetRekts({ 0,0,225,225}, { 950,445, 53,53 });
@@ -133,11 +145,25 @@ void Engine::Update()
 	}
 
 
-	if (m_ground.GetRectDst()->x <= -m_ground.GetRectDst()->w) // when bg1 is completely off screen
+	if (m_ground.GetRectDst()->x <= -m_ground.GetRectDst()->w) // when platform is completely off screen
 	{
-		// teleport back to the start of bg1
+		// teleport back to the start of platform
 		m_ground.GetRectDst()->x = 0;
 		m_ground2.GetRectDst()->x = WIDTH;
+	}
+
+	if (m_back1.GetRectDst()->x <= -m_back1.GetRectDst()->w) // when bg1 is completely off screen
+	{
+		// teleport back to the start of bg1
+		m_back1.GetRectDst()->x = 0;
+		m_back1Scroll.GetRectDst()->x = WIDTH;
+	}
+
+	if (m_back2.GetRectDst()->x <= -m_back2.GetRectDst()->w) // when bg2 is completely off screen
+	{
+		// teleport back to the start of bg2
+		m_back2.GetRectDst()->x = 0;
+		m_back2Scroll.GetRectDst()->x = WIDTH;
 	}
 
 	//player movement
@@ -158,11 +184,19 @@ void Engine::Update()
 		m_enemy.GetRectDst()->x -= m_speed ;
 		m_ground.GetRectDst()->x -= m_speed / 2;
 		m_ground2.GetRectDst()->x -= m_speed / 2;
+		m_back1.GetRectDst()->x -= m_speed / 4;
+		m_back1Scroll.GetRectDst()->x -= m_speed / 4;
+		m_back2.GetRectDst()->x -= m_speed / 4;
+		m_back2Scroll.GetRectDst()->x -= m_speed / 4;
 	}
 	if (m_player.GetRectDst()->x < 400 && (KeyDown(SDL_SCANCODE_A)))
 	{
 		m_ground.GetRectDst()->x += m_speed / 2;
 		m_ground2.GetRectDst()->x += m_speed / 2;
+		m_back1.GetRectDst()->x += m_speed / 4;
+		m_back1Scroll.GetRectDst()->x += m_speed / 4;
+		m_back2.GetRectDst()->x += m_speed / 4;
+		m_back2Scroll.GetRectDst()->x += m_speed / 4;
 	}
 
 	for (unsigned i = 0; i < m_bullets.size(); i++)  // size is filled num of elements
@@ -188,8 +222,13 @@ void Engine::Render()
 {
 	SDL_SetRenderDrawColor(m_pRenderer, 20, 200, 255, 255);
 	SDL_RenderClear(m_pRenderer);
-	
-	SDL_RenderCopy(m_pRenderer, m_testBackground , m_ground.GetRectSrc(), m_ground.GetRectDst());
+
+	SDL_RenderCopy(m_pRenderer, m_realBackground0, m_back0.GetRectSrc(), m_back0.GetRectDst());
+	SDL_RenderCopy(m_pRenderer, m_realBackground1, m_back1.GetRectSrc(), m_back1.GetRectDst());
+	SDL_RenderCopy(m_pRenderer, m_realBackground2, m_back2.GetRectSrc(), m_back2.GetRectDst());
+	SDL_RenderCopy(m_pRenderer, m_realBackground1, m_back1Scroll.GetRectSrc(), m_back1Scroll.GetRectDst());
+	SDL_RenderCopy(m_pRenderer, m_realBackground2, m_back2Scroll.GetRectSrc(), m_back2Scroll.GetRectDst());
+	SDL_RenderCopy(m_pRenderer, m_testBackground, m_ground.GetRectSrc(), m_ground.GetRectDst());
 	SDL_RenderCopy(m_pRenderer, m_testBackground, m_ground2.GetRectSrc(), m_ground2.GetRectDst());
 	SDL_RenderCopy(m_pRenderer, m_endGoalTexture, m_endGoal.GetRectSrc(), m_endGoal.GetRectDst());
 	SDL_RenderCopy(m_pRenderer, m_testPlayer, m_player.GetRectSrc(), m_player.GetRectDst());
@@ -251,6 +290,9 @@ void Engine::Clean()
 	m_bullets.shrink_to_fit(); // reduces capacity to size
 	
 	SDL_DestroyTexture(m_testBackground);
+	SDL_DestroyTexture(m_realBackground0);
+	SDL_DestroyTexture(m_realBackground1);
+	SDL_DestroyTexture(m_realBackground2);
 	SDL_DestroyTexture(m_testPlayer);
 	SDL_DestroyTexture(m_endGoalTexture);
 	SDL_DestroyTexture(m_testEnemy);

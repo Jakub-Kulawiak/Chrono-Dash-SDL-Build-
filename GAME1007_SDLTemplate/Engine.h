@@ -163,12 +163,12 @@ private: // private properties.
 
 	
 	// textures (consider implementing texture map when figured out)
-	SDL_Texture* m_testBackground;
+	SDL_Texture* m_testBackground, * m_realBackground0, * m_realBackground1, * m_realBackground2;
 	SDL_Texture* m_testPlayer;
 	SDL_Texture* m_endGoalTexture;
 	SDL_Texture* m_testEnemy;
 	// sprites
-	Sprite m_ground, m_ground2;
+	Sprite m_ground, m_ground2, m_back0, m_back1, m_back1Scroll, m_back2, m_back2Scroll;
 	AnimatedSprite m_player;
 	EndGoal m_endGoal;
 	EnemySprite m_enemy;
