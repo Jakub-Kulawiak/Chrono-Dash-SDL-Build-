@@ -173,6 +173,10 @@ private: // private properties.
 	EndGoal m_endGoal;
 	EnemySprite m_enemy;
 	vector<Bullet*> m_bullets;
+	// Sounds
+	Mix_Chunk* m_jump;
+	Mix_Chunk* m_damage;
+	Mix_Chunk* m_shoot;
 	
 
 

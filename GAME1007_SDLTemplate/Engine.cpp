@@ -38,7 +38,14 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 					//configured mixer
 					Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 2048);
 					Mix_AllocateChannels(16);
+					
+			
 					//Loads sounds
+					m_jump = Mix_LoadWAV("Aud/Jump.wav");
+					m_shoot = Mix_LoadWAV("Aud/Shoot.wav");
+					m_damage = Mix_LoadWAV("Aud/Damage.wav");
+
+
 
 				}
 				else return false;
@@ -94,13 +101,17 @@ void Engine::HandleEvents()
 					m_bullets.push_back(new Bullet({ m_player.GetRectDst()->x, m_player.GetRectDst()->y }));
 					m_bullets.shrink_to_fit();
 					cout << "New bullet vector capacity: " << m_bullets.capacity() << endl;
+					Mix_VolumeChunk(m_shoot, 10);
+					Mix_PlayChannel(-1, m_shoot, 0);
 				}
 
 				if (event.key.keysym.sym == 'w')
 				{
 					m_player.GetRectDst()->y -= m_jumpForce;
+					Mix_VolumeChunk(m_jump, 10);
+					Mix_PlayChannel(-1, m_jump, 0);
 				}
-
+				
 			
 		}
 	}
