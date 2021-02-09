@@ -1,11 +1,13 @@
 #pragma once
 #ifndef _ENGINE_H_
 #define _ENGINE_H_
+#define GRAVITY 6
 
 #include<vector>
 #include "SDL_image.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
+#include "Player.h"
 #include <iostream>
 #include<time.h>
 #define FPS 120
@@ -19,8 +21,7 @@ protected:
 	SDL_Rect m_src;
 	SDL_Rect m_dst;
 public:
-
-	void SetRekts(const SDL_Rect src, const SDL_Rect dst)
+	void SetRects(SDL_Rect src, SDL_Rect dst)
 	{
 		m_src = src;
 		m_dst = dst;
@@ -33,12 +34,6 @@ public:
 	{
 		return &m_dst;
 	}
-	void Update()
-	{
-		m_dst.x -= 2;
-	}
-
-
 };
 
 class AnimatedSprite : public Sprite
@@ -51,11 +46,6 @@ private:
 
 public:
 	int m_flip = 0;
-	void SetRects(SDL_Rect s, SDL_Rect d)
-	{
-		m_src = s;
-		m_dst = d;
-	}
 	bool m_faceLeft = 0; // 1 = left | 0 = right
 	void FlipLeft()
 	{
@@ -98,17 +88,13 @@ private: // private properties.
 	const Uint8* m_keystates;
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
-
-	// variables (temporary)
-	int m_speed = 4, m_gravity = 6, m_jumpForce = 100;
 	
 	// textures (consider implementing texture map when figured out)
 	SDL_Texture* m_testBackground;
 	SDL_Texture* m_testPlayer;
 	// sprites
 	Sprite m_ground;
-	AnimatedSprite m_player;
-
+	Player m_player;
 
 private: // private method prototypes.
 	int Init(const char* title, int xPos, int yPos, int width, int height, int flags);
@@ -125,6 +111,6 @@ public: // public method prototypes.
 	int Run();
 };
 
-#endif
+#endif /* defined (_ENGINE_) */
 
 // Reminder: you can ONLY have declarations in headers, not logical code
