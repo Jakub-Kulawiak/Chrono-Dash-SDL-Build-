@@ -9,7 +9,8 @@ class EnemyBullet : public SpriteObject
 {
 private:
 
-	int m_angle;
+	int m_angle,
+		m_time = 0;
 
 public:
 
@@ -25,7 +26,9 @@ class RangedEnemy : public AnimatedSpriteObject
 {
 private:
 	SDL_FPoint m_center;
-	int m_timer;
+	int m_timer,
+		m_state;
+	
 	double m_angle,
 		m_radius,
 		m_accelX,
