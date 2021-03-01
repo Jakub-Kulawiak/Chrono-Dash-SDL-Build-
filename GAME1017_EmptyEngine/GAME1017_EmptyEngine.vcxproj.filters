@@ -58,6 +58,9 @@
     <ClCompile Include="States.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="RangedEnemy.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -98,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="States.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedEnemy.h">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
