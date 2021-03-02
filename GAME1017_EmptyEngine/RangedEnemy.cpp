@@ -55,25 +55,48 @@ void RangedEnemy::Update()
 	switch (m_state)
 	{
 		
-	case CAMPING: // enemy will only stay in one place and maybe turn
+	case CAMPING: // enemy will only stay in one place and maybe turn in place
 		{
-
+		if (m_facingLeft)
+		{
+			m_facingLeft = false;
+			m_bulletAngle = 180;
+		}	
+		else if (!m_facingLeft)
+		{
+			m_facingLeft = true;
+			m_bulletAngle = 0;
+		}	
 		break;
 		}
 	case MOVING: // will move left and right
 		{
+		if (m_facingLeft == true)
+		{
+			
+		}
+		else if (m_facingLeft == false)
+		{
 
+		}
 		break;
 		}
 	case JUMPING: // will jump up and down
 		{
+		// just place upwards velocity increase
 
+
+			
 		break;
 		}
 	default: ;
 	}
 
-
+	if( IsGrounded() == false)
+	{
+		//place downwards velocity below
+		
+	}
 	
 	
 }

@@ -30,6 +30,7 @@ private:
 		m_state;
 	
 	double m_angle,
+		m_bulletAngle,
 		m_radius,
 		m_accelX,
 		m_accelY,
