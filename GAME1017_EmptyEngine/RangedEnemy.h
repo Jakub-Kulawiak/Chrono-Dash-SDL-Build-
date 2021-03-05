@@ -2,23 +2,27 @@
 #ifndef _RANGED_
 #define _RANGED_
 
+#include <vector>
 #include "GameObject.h"
 
 
 class EnemyBullet : public SpriteObject
 {
 private:
-
-	int m_angle,
-		m_time = 0;
+	bool m_active;
+	double m_angle;
+	int	m_time = 0;
 
 public:
 
-	EnemyBullet(SDL_Rect s, SDL_FRect d);
+	EnemyBullet(SDL_Rect s, SDL_FRect d, double angle);
 	~EnemyBullet() = default;
 
 	void Update() override;
 	void Render() override;
+
+	void setStatus(bool status);
+	bool getStatus();
 	
 };
 
@@ -41,9 +45,10 @@ private:
 		m_drag,
 		m_grav;
 	
-	bool m_grounded, m_facingLeft;
+	bool m_grounded, m_facingLeft; // basic checks
+	vector<EnemyBullet*> m_bullets;
 
-	enum RangedState {CAMPING, MOVING, JUMPING};
+	enum RangedState {CAMPING, MOVING, JUMPING}; // enemy states
 
 public:
 
@@ -51,15 +56,17 @@ public:
 	~RangedEnemy() = default;
 	void Update() override;
 	void Render() override;
-	bool IsGrounded();
+	bool IsGrounded() const;
 	void SetGrounded(bool g);
-	double GetVelX();
-	double GetVelY();
+	double GetVelX() const;
+	double GetVelY() const;
 	void Stop();
 	void StopX();
 	void StopY();
 	void SetAccelX(double a);
 	void SetAccelY(double a);
+
+	void ChangeDirection();
 };
 
 
