@@ -8,6 +8,7 @@
 #include "SoundManager.h"
 #include "Primitives.h"
 #include "Button3.h"
+#include "EnemyMelee.h"
 
 
 #include <iostream>
@@ -100,6 +101,9 @@ GameState::GameState(){}
 
 void GameState::Enter() // Used for initialization.
 {
+	TEMA::Load("Img/GolemTesting.png", "enemyMelee");
+	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
+		new EnemyMelee({ 0, 0, 1500, 1500}, { 462.0f, 334.0f, 100.0f, 100.0f })));
 }
 
 void GameState::Update()
@@ -109,12 +113,15 @@ void GameState::Update()
 
 void GameState::Render()
 {
+
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	for (auto const& i : m_objects)
 		i.second->Render();
 	if ( dynamic_cast<GameState*>(STMA::GetStates().back()) ) // Check to see if current state is of type GameState
 		State::Render();
+
+
 }
 
 void GameState::Exit()
@@ -127,6 +134,7 @@ void GameState::Exit()
 	SOMA::Unload("fire", SOUND_SFX);
 	SOMA::Unload("explode", SOUND_SFX);
 	SOMA::Unload("wings", SOUND_MUSIC);
+	TEMA::Unload("enemyMelee");
 	for (auto& i : m_objects)
 	{
 		delete i.second;
