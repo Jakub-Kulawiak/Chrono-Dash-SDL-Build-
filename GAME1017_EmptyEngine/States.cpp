@@ -103,7 +103,7 @@ void GameState::Enter() // Used for initialization.
 {
 	TEMA::Load("Img/GolemTesting.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
-		new EnemyMelee({ 0, 0, 1500, 1500}, { 462.0f, 334.0f, 100.0f, 100.0f })));
+		new EnemyMelee({ 0, 0, 1500, 1500}, { 462.0f, 334.0f, 50.0f, 50.0f })));
 }
 
 void GameState::Update()
