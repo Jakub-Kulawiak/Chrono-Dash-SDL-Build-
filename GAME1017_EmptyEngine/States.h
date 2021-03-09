@@ -41,6 +41,7 @@ public:
 	virtual void Render();
 	virtual void Exit();
 	virtual void Resume();
+private:TiledLevel* m_level = nullptr;
 };
 
 #endif

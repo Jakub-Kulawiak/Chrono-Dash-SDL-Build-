@@ -101,14 +101,21 @@ GameState::GameState(){}
 
 void GameState::Enter() // Used for initialization.
 {
+	TEMA::Load("Img/Tiles.png", "tiles");
 	TEMA::Load("Img/GolemTesting.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
 		new EnemyMelee({ 0, 0, 1500, 1500}, { 462.0f, 334.0f, 50.0f, 50.0f })));
+	m_level = new TiledLevel(24, 32, 32, 32, "Dat/Tiledata.txt", "Dat/Level1.txt", "tiles");
+
 }
 
 void GameState::Update()
 {
-	
+	for (auto const& i : m_objects)
+	{
+		i.second->Update();
+		if (STMA::StateChanging()) return;
+	}
 }
 
 void GameState::Render()
@@ -118,6 +125,8 @@ void GameState::Render()
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	for (auto const& i : m_objects)
 		i.second->Render();
+	m_level->Render();
+
 	if ( dynamic_cast<GameState*>(STMA::GetStates().back()) ) // Check to see if current state is of type GameState
 		State::Render();
 

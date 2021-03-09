@@ -14,7 +14,7 @@ class Tile : public SpriteObject
 public:
 	Tile(SDL_Rect s, SDL_FRect d, bool o, bool h)
 		:SpriteObject(s, d), m_obstacle(o), m_hazard(h) {}
-	Tile* Clone() {	return new Tile(m_src, m_dst, m_obstacle, m_hazard); }
+	Tile* Clone() { return new Tile(m_src, m_dst, m_obstacle, m_hazard); }
 	bool IsObstacle() { return m_obstacle; }
 	void SetXY(float x, float y) { m_dst.x = x; m_dst.y = y; }
 	void Update() {}
