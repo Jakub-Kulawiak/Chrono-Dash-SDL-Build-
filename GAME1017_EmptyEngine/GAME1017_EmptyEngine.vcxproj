@@ -143,6 +143,7 @@
     <ClCompile Include="Button3.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="EnemyMelee.cpp" />
+    <ClCompile Include="EnemyMeleeBat.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Button3.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="EnemyMelee.h" />
+    <ClInclude Include="EnemyMeleeBat.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameObject.h" />
@@ -176,6 +178,8 @@
   <ItemGroup>
     <Image Include="Img\526fb65f4e01e59d2489b017813302e8.png" />
     <Image Include="Img\background.png" />
+    <Image Include="Img\BatTesting.png" />
+    <Image Include="Img\Bat_Sprite_Sheet.png" />
     <Image Include="Img\button.png" />
     <Image Include="Img\Player.png" />
     <Image Include="Img\Sprites.png" />

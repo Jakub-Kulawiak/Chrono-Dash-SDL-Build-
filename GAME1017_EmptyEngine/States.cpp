@@ -9,9 +9,10 @@
 #include "Primitives.h"
 #include "Button3.h"
 #include "EnemyMelee.h"
-
+#include "EnemyMeleeBat.h"
 
 #include <iostream>
+
 using namespace std;
 
 void State::Render()
@@ -104,6 +105,9 @@ void GameState::Enter() // Used for initialization.
 	TEMA::Load("Img/GolemTesting.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
 		new EnemyMelee({ 0, 0, 1500, 1500}, { 462.0f, 334.0f, 50.0f, 50.0f })));
+	TEMA::Load("Img/BatTesting.png", "enemyMeleeBat");
+	m_objects.push_back(pair<string, GameObject*>("enemyMeleeBat",
+		new EnemyMeleeBat({ 0, 0, 80, 72 }, { 100.0f, 300.0f, 40.0f, 40.0f })));
 }
 
 void GameState::Update()
@@ -135,6 +139,7 @@ void GameState::Exit()
 	SOMA::Unload("explode", SOUND_SFX);
 	SOMA::Unload("wings", SOUND_MUSIC);
 	TEMA::Unload("enemyMelee");
+	TEMA::Unload("enemyMelee2");
 	for (auto& i : m_objects)
 	{
 		delete i.second;
