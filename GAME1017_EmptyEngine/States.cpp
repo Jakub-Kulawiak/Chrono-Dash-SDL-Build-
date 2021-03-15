@@ -8,8 +8,6 @@
 #include "SoundManager.h"
 #include "Primitives.h"
 #include "Button3.h"
-
-
 #include <iostream>
 using namespace std;
 
@@ -100,6 +98,10 @@ GameState::GameState(){}
 
 void GameState::Enter() // Used for initialization.
 {
+	TEMA::Load("Img/Player.png", "Player");
+	TEMA::Load("Img/Bullet.png", "Bullet");
+	m_objects.push_back(pair<string, GameObject*>("Player",
+		new PlatformPlayer({ 0, 0, 2000, 1382 }, { 0.0f, 0.0f, 2000.0f, 1382.0f })));
 }
 
 void GameState::Update()

@@ -35,7 +35,7 @@ void EnemyBullet::Update()
 void EnemyBullet::Render()
 {
 	//TODO: bullet sprite
-	SDL_RenderCopyExF(Engine::Instance().GetRenderer(), TEMA::GetTexture(""), 
+	SDL_RenderCopyExF(Engine::Instance().GetRenderer(), TEMA::GetTexture("Circle"), 
 		&m_src, &m_dst, m_angle, nullptr, SDL_FLIP_NONE);
 }
 

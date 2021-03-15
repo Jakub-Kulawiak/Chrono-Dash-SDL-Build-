@@ -1,10 +1,8 @@
 #pragma once
 #ifndef _RANGED_
 #define _RANGED_
-
 #include <vector>
 #include "GameObject.h"
-
 
 class EnemyBullet : public SpriteObject
 {

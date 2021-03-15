@@ -1,10 +1,20 @@
 #pragma once
 #ifndef _PLATFORMPLAYER_H_
 #define _PLATFORMPLAYER_H_
-
+#include <vector>
 #include "GameObject.h"
 #define GRAV 2.0
 #define JUMPFORCE 25.0
+
+class PlayerBullet : public SpriteObject
+{
+public:
+	PlayerBullet(SDL_Rect s, SDL_FRect d);
+	void Update();
+	void Render();
+private:
+	int m_bulletSpeed = 5;
+};
 
 class PlatformPlayer : public AnimatedSpriteObject
 {
@@ -24,6 +34,7 @@ public: // Methods.
 	void SetX(float x);
 	void SetY(float y);
 private: // Properties.
+	vector<PlayerBullet*> m_bullets;
 	bool m_grounded, m_facingLeft;
 	double m_accelX,
 		m_accelY,

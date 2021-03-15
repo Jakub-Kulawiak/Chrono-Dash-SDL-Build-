@@ -19,7 +19,6 @@ public:
 protected: // Private but inherited
 	State() {} // What does this prevent?
 	vector<std::pair<std::string, GameObject*>> m_objects;
-	
 };
 
 class TitleState : public State
@@ -41,6 +40,8 @@ public:
 	virtual void Render();
 	virtual void Exit();
 	virtual void Resume();
+private:
+	
 };
 
 #endif

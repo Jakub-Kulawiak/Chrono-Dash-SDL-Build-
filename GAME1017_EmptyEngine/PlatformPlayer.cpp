@@ -4,16 +4,42 @@
 #include "TextureManager.h"
 #include <cmath>
 
-PlatformPlayer::PlatformPlayer(SDL_Rect s, SDL_FRect d):AnimatedSpriteObject(s, d),
+PlayerBullet::PlayerBullet(SDL_Rect s, SDL_FRect d) : SpriteObject(s, d) {}
+
+void PlayerBullet::Update()
+{
+	m_dst.x += m_bulletSpeed;
+}
+
+void PlayerBullet::Render()
+{
+
+}
+
+PlatformPlayer::PlatformPlayer(SDL_Rect s, SDL_FRect d) : AnimatedSpriteObject(s, d),
 m_state(STATE_JUMPING), m_grounded(false), m_facingLeft(false), m_maxVelX(10.0),
 m_maxVelY(JUMPFORCE), m_grav(GRAV), m_drag(0.8)
 {
 	m_accelX = m_accelY = m_velX = m_velY = 0.0;
-	SetAnimation(1, 8, 9); // Initialize jump animation.
+	SetAnimation(5, 21, 25); // Initialize jump animation.
 }
 
 void PlatformPlayer::Update()
 {
+	SDL_Event event;
+
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		case SDL_KEYUP:
+			if (event.key.keysym.sym = SDLK_SPACE)
+			{
+				m_bullets.push_back(new PlayerBullet({ 0, 0, 100, 17 }, { this->m_dst.x, this->m_dst.y, 100.0f, 17.0f }));
+			}
+		}
+	}
+
 	// Checking states.
 	switch (m_state)
 	{
@@ -22,7 +48,7 @@ void PlatformPlayer::Update()
 		if (EVMA::KeyPressed(SDL_SCANCODE_A) || EVMA::KeyPressed(SDL_SCANCODE_D))
 		{
 			m_state = STATE_RUNNING;
-			SetAnimation(3, 0, 8, 256); // , 256
+			SetAnimation(9, 26, 34, 256); // , 256
 		}
 		// Transition to jump.
 		else if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)
@@ -30,7 +56,7 @@ void PlatformPlayer::Update()
 			m_accelY = -JUMPFORCE; // SetAccelY(-JUMPFORCE);
 			m_grounded = false; // SetGrounded(false);
 			m_state = STATE_JUMPING;
-			SetAnimation(1, 8, 9, 256);
+			SetAnimation(5, 21, 25, 256);
 		}
 		break;
 	case STATE_RUNNING:
@@ -53,13 +79,13 @@ void PlatformPlayer::Update()
 			m_accelY = -JUMPFORCE; 
 			m_grounded = false; 
 			m_state = STATE_JUMPING;
-			SetAnimation(1, 8, 9, 256);
+			SetAnimation(5, 21, 25, 256);
 		}
 		// Transition to idle.
 		if (!EVMA::KeyHeld(SDL_SCANCODE_A) && !EVMA::KeyHeld(SDL_SCANCODE_D))
 		{
 			m_state = STATE_IDLING;
-			SetAnimation(1, 0, 1, 256); // , 256
+			SetAnimation(10, 11, 20, 256); // , 256
 		}
 		break;
 	case STATE_JUMPING:
@@ -80,7 +106,7 @@ void PlatformPlayer::Update()
 		if (m_grounded)
 		{
 			m_state = STATE_RUNNING;
-			SetAnimation(3, 0, 8, 256);
+			SetAnimation(9, 26, 34, 256);
 		}
 		break;
 	}
@@ -101,7 +127,7 @@ void PlatformPlayer::Update()
 
 void PlatformPlayer::Render()
 {
-	SDL_RenderCopyExF(Engine::Instance().GetRenderer(), TEMA::GetTexture("player"),
+	SDL_RenderCopyExF(Engine::Instance().GetRenderer(), TEMA::GetTexture("Player"),
 		&m_src, &m_dst, 0.0, NULL, (m_facingLeft?SDL_FLIP_HORIZONTAL:SDL_FLIP_NONE));
 }
 
