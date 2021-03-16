@@ -46,9 +46,6 @@
     <ClCompile Include="Button3.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="PlatformPlayer.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="TiledLevel.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
@@ -65,6 +62,9 @@
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="LoseStateObjects.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformPlayer.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>

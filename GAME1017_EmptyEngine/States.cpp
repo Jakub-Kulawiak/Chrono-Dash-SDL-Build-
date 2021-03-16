@@ -10,9 +10,6 @@
 #include "Button3.h"
 #include "EnemyMelee.h"
 #include "LoseStateObjects.h"
-
-
-
 #include <iostream>
 using namespace std;
 
@@ -108,7 +105,10 @@ void GameState::Enter() // Used for initialization.
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
 		new EnemyMelee({ 0, 0, 35,35}, { 462.0f, 334.0f, 90.0f, 90.0f })));
 
-	
+	TEMA::Load("Img/Player.png", "Player");
+	TEMA::Load("Img/Bullet.png", "Bullet");
+	m_objects.push_back(pair<string, GameObject*>("Player",
+		new PlatformPlayer({ 0, 0, 577, 529 }, { 500.0f, 100.0f, 100.0f, 100.0f })));
 }
 
 void GameState::Update()
