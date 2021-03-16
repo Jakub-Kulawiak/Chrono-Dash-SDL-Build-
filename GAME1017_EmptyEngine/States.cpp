@@ -103,12 +103,12 @@ void GameState::Enter() // Used for initialization.
 	TEMA::Load("Img/Tiles.png", "tiles");
 	TEMA::Load("Img/Mini Golem Sprite Sheet.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
-		new EnemyMelee({ 0, 0, 35,35}, { 462.0f, 334.0f, 90.0f, 90.0f })));
+		new EnemyMelee({ 0, 0, 35,35}, { 630.0f, 460.0f, 90.0f, 90.0f })));
 
 	TEMA::Load("Img/Player.png", "Player");
 	TEMA::Load("Img/Bullet.png", "Bullet");
 	m_objects.push_back(pair<string, GameObject*>("Player",
-		new PlatformPlayer({ 0, 0, 577, 529 }, { 500.0f, 100.0f, 100.0f, 100.0f })));
+		new PlatformPlayer({ 0, 0, 577, 529 }, { 300.0f, 450.0f, 100.0f, 100.0f })));
 }
 
 void GameState::Update()
