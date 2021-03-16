@@ -3,10 +3,10 @@
 #define _PLATFORMPLAYER_H_
 #include <vector>
 #include "GameObject.h"
-#define GRAV 2.0
+#define GRAV 0.0
 #define JUMPFORCE 25.0
 
-class PlayerBullet : public SpriteObject
+class PlayerBullet : public AnimatedSpriteObject
 {
 public:
 	PlayerBullet(SDL_Rect s, SDL_FRect d);

@@ -101,12 +101,15 @@ void GameState::Enter() // Used for initialization.
 	TEMA::Load("Img/Player.png", "Player");
 	TEMA::Load("Img/Bullet.png", "Bullet");
 	m_objects.push_back(pair<string, GameObject*>("Player",
-		new PlatformPlayer({ 0, 0, 2000, 1382 }, { 0.0f, 0.0f, 2000.0f, 1382.0f })));
+		new PlatformPlayer({ 0, 0, 577, 529}, { 500.0f, 100.0f, 100.0f, 100.0f })));
 }
 
 void GameState::Update()
 {
-	
+	for (auto const& i : m_objects)
+	{
+		i.second->Update();
+	}
 }
 
 void GameState::Render()

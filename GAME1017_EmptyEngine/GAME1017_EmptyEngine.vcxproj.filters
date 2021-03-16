@@ -110,9 +110,6 @@
     <Image Include="Img\Tiles.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Img\Player.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Img\button.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -126,6 +123,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Img\526fb65f4e01e59d2489b017813302e8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Img\Player.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Img\Bullet.png">
