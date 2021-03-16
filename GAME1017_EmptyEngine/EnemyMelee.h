@@ -18,6 +18,7 @@ public: // Methods.
 	bool IsGrounded();
 	void SetGrounded(bool g);
 
+
 private: // Properties.
 	bool m_grounded, m_facingLeft;
 	double m_accelX,
@@ -28,6 +29,8 @@ private: // Properties.
 		m_maxVelY,
 		m_drag,
 		m_grav;
+	int m_timer;
+	
 	enum enemyMeleeState { IDLE, MOVE, ATTACK} m_state;
 
 };

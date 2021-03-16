@@ -9,6 +9,7 @@ Button3::Button3(SDL_Rect s, SDL_FRect d, const char* k) :SpriteObject(s, d), m_
 
 void Button3::Update()
 {
+
 	bool col = COMA::PointAABBCheck(EVMA::GetMousePos(), m_dst);
 	EVMA::SetCursor(col?SDL_SYSTEM_CURSOR_HAND:SDL_SYSTEM_CURSOR_ARROW);
 	switch (m_state)
@@ -47,6 +48,13 @@ PlayButton::PlayButton(SDL_Rect s, SDL_FRect d, const char* k) :Button3(s, d, k)
 void PlayButton::Execute()
 {
 	STMA::ChangeState(new GameState());
+}
+
+GameOverButton::GameOverButton(SDL_Rect s, SDL_FRect d, const char* k) :Button3(s, d, k) {}
+
+void GameOverButton::Execute()
+{
+	STMA::ChangeState(new TitleState());
 }
 
 

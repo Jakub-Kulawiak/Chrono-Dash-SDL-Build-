@@ -64,6 +64,9 @@
     <ClCompile Include="EnemyMelee.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="LoseStateObjects.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -109,6 +112,9 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="EnemyMelee.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseStateObjects.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>

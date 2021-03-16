@@ -27,5 +27,15 @@ public:
 	PlayButton(SDL_Rect s, SDL_FRect d, const char* k);
 };
 
+class GameOverButton : public Button3
+{
+private:
+	void Execute();
+public:
+	GameOverButton(SDL_Rect s, SDL_FRect d, const char* k);
+};
+
+
+
 #endif
 

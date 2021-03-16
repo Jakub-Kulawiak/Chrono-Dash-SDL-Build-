@@ -9,6 +9,8 @@
 #include "Primitives.h"
 #include "Button3.h"
 #include "EnemyMelee.h"
+#include "LoseStateObjects.h"
+
 
 
 #include <iostream>
@@ -48,6 +50,7 @@ TitleState::TitleState(){}
 
 void TitleState::Enter()
 {
+
 	TEMA::Load("Img/Title.png", "title");
 	TEMA::Load("Img/button.png", "play");
 	TEMA::Load("Img/TitleBack.jpg", "bg");
@@ -101,14 +104,20 @@ GameState::GameState(){}
 
 void GameState::Enter() // Used for initialization.
 {
-	TEMA::Load("Img/GolemTesting.png", "enemyMelee");
+	TEMA::Load("Img/Mini Golem Sprite Sheet.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
-		new EnemyMelee({ 0, 0, 1500, 1500}, { 462.0f, 334.0f, 50.0f, 50.0f })));
+		new EnemyMelee({ 0, 0, 35,35}, { 462.0f, 334.0f, 90.0f, 90.0f })));
+
+	
 }
 
 void GameState::Update()
 {
-	
+	for (auto const& i : m_objects)
+	{
+		i.second->Update();
+		if (STMA::StateChanging()) return;
+	}
 }
 
 void GameState::Render()
@@ -144,3 +153,50 @@ void GameState::Exit()
 
 void GameState::Resume(){}
 // End GameState
+
+LoseState::LoseState(){}
+
+void LoseState::Enter()
+{
+	cout << "Entering LoseState..." << endl;
+	
+	TEMA::Load("Img/Game Over.png", "gameOver");
+	m_objects.push_back(pair<string, GameObject*>("gameOver",
+		new LoseStateObjects({ 0, 0, 400,100 }, { 310.0f, 50.0f, 390.0f, 100 })));
+	
+	TEMA::Load("Img/RetryButton.png", "retryButton");
+	m_objects.push_back(pair<string, GameObject*>("retryButton",
+		new GameOverButton({ 0, 0, 451, 150 }, { 410, 450, 200, 50 }, "retryButton")));
+}
+
+void LoseState::Update()
+{
+	for (auto const& i : m_objects)
+	{
+		i.second->Update();
+		if (STMA::StateChanging()) return;
+	}
+}
+
+void LoseState::Render()
+{
+
+	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
+	SDL_RenderClear(Engine::Instance().GetRenderer());
+	for (auto const& i : m_objects)
+		i.second->Render();
+	State::Render();
+
+}
+
+void LoseState::Exit()
+{
+	cout << "Exiting LoseState..." << endl;
+	TEMA::Unload("gameOver");
+	TEMA::Unload("retryButton");
+	for (auto& i : m_objects)
+	{
+		delete i.second;
+		i.second = nullptr; // ;)
+	}
+}

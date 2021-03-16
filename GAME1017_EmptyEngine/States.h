@@ -43,5 +43,15 @@ public:
 	virtual void Resume();
 };
 
+class LoseState : public State
+{
+public:
+	LoseState();
+	virtual void Enter();
+	virtual void Update();
+	virtual void Render();
+	virtual void Exit();
+};
+
 #endif
 
