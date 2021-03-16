@@ -51,19 +51,18 @@ TitleState::TitleState(){}
 void TitleState::Enter()
 {
 
-	TEMA::Load("Img/Title.png", "title");
-	TEMA::Load("Img/button.png", "play");
-	TEMA::Load("Img/TitleBack.jpg", "bg");
-	SOMA::Load("Aud/Title.mp3", "title", SOUND_MUSIC);
+	TEMA::Load("Img/PholderButton.png", "play");
+	TEMA::Load("Img/Thing.png", "bg");
+	TEMA::Load("Img/PholderTitle.png", "title");
 	m_objects.push_back(pair<string, GameObject*>("bg",
-		new Image({ 0, 0, 1920, 1200 }, { 0, 0, 1024, 768 }, "bg")));
-	m_objects.push_back(pair<string, GameObject*>("title",
-		new Image({ 0, 0, 800, 156 }, { 112, 100, 800, 156 }, "title")));
+		new Image({ 0, 0, 1015, 768 }, { 0, 0, 1024, 768 }, "bg")));
 	m_objects.push_back(pair<string, GameObject*>("play",
-		new PlayButton({ 0, 0, 400, 100 }, { 412, 384, 200, 50 }, "play")));
+		new PlayButton({ 0, 0, 410, 100 }, { 412, 700, 200, 50 }, "play")));
+
+	m_objects.push_back(pair<string, GameObject*>("title",
+		new Image({ 0, 0, 927, 215 }, { 50, 50, 927, 215 }, "title")));
 	SOMA::AllocateChannels(16);
 	SOMA::SetMusicVolume(32);
-	SOMA::PlayMusic("title", -1, 2000);
 }
 
 void TitleState::Update()
@@ -90,7 +89,6 @@ void TitleState::Exit()
 	TEMA::Unload("play");
 	TEMA::Unload("bg");
 	SOMA::StopMusic();
-	SOMA::Unload("title", SOUND_MUSIC);
 	for (auto& i : m_objects)
 	{
 		delete i.second;
@@ -135,14 +133,8 @@ void GameState::Render()
 
 void GameState::Exit()
 {
-	TEMA::Unload("bg");
-	TEMA::Unload("sprites");
 	SOMA::StopSound();
 	SOMA::StopMusic();
-	SOMA::Unload("engines", SOUND_SFX);
-	SOMA::Unload("fire", SOUND_SFX);
-	SOMA::Unload("explode", SOUND_SFX);
-	SOMA::Unload("wings", SOUND_MUSIC);
 	TEMA::Unload("enemyMelee");
 	for (auto& i : m_objects)
 	{

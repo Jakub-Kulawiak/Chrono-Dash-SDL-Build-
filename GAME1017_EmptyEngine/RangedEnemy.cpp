@@ -86,10 +86,10 @@ void RangedEnemy::Update()
 	case MOVING: // will move left and right
 		{
 		if (m_facingLeft == true)
-			m_accelX = -1.5;
+			m_dst.x -= 1.5f;
 
 		else if (m_facingLeft == false)
-			m_accelX = +1.5;
+			m_dst.x += 1.5f;
 	
 		break;
 		}
@@ -106,18 +106,6 @@ void RangedEnemy::Update()
 	{
 		m_accelY = +GRAV;
 	}
-	// enemy movement calculations
-	m_velX += m_accelX;
-	m_velX *= (m_grounded ? m_drag : 1.0); // Cheeky deceleration.
-	m_velX = std::min(std::max(m_velX, -m_maxVelX), m_maxVelX);
-	m_dst.x += (float)m_velX; // May have to cast to (int)
-
-	m_velY += m_accelY + m_grav;
-	m_velY = std::min(std::max(m_velY, -m_maxVelY), m_maxVelY); 
-	m_dst.y += (float)m_velY;
-
-	m_accelX = m_accelY = 0.0; // Resetting acceleration every frame.
-
 
 	// bullet update
 	for(auto i = 0; i < m_bullets.size(); i++)
