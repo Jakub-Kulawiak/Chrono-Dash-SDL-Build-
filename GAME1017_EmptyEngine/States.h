@@ -41,6 +41,7 @@ public:
 	virtual void Render();
 	virtual void Exit();
 	virtual void Resume();
+private:TiledLevel* m_level = nullptr;
 };
 
 class LoseState : public State
@@ -51,6 +52,8 @@ public:
 	virtual void Update();
 	virtual void Render();
 	virtual void Exit();
+
+
 };
 
 #endif
