@@ -9,11 +9,11 @@
 class PlayerBullet : public AnimatedSpriteObject
 {
 public:
-	PlayerBullet(SDL_Rect s, SDL_FRect d);
+	PlayerBullet(SDL_Rect s, SDL_FRect d, bool facingLeft);
 	void Update();
 	void Render();
 private:
-	int m_bulletSpeed = 5;
+	int m_bulletSpeed;
 };
 
 class PlatformPlayer : public AnimatedSpriteObject
@@ -27,6 +27,7 @@ public: // Methods.
 	void StopY();
 	void SetAccelX(double a);
 	void SetAccelY(double a);
+	bool IsFacingLeft();
 	bool IsGrounded();
 	void SetGrounded(bool g);
 	double GetVelX();
