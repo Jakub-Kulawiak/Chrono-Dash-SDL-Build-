@@ -19,11 +19,11 @@ void State::Render()
 	SDL_RenderPresent(Engine::Instance().GetRenderer());
 }
 
-void State::Resume(){}
+void State::Resume() {}
 
 GameObject* State::GetGo(const std::string& s)
 { // Using 'std' just to show origin.
-	auto it = std::find_if(m_objects.begin(), m_objects.end(), 
+	auto it = std::find_if(m_objects.begin(), m_objects.end(),
 		[&](const std::pair<std::string, GameObject*>& element)
 		{
 			return element.first == s;
@@ -34,7 +34,7 @@ GameObject* State::GetGo(const std::string& s)
 }
 
 auto State::GetIt(const std::string& s)
-{ 
+{
 	auto it = std::find_if(m_objects.begin(), m_objects.end(),
 		[&](const std::pair<std::string, GameObject*>& element)
 		{
@@ -44,7 +44,7 @@ auto State::GetIt(const std::string& s)
 }
 
 // Begin TitleState
-TitleState::TitleState(){}
+TitleState::TitleState() {}
 
 void TitleState::Enter()
 {
@@ -97,15 +97,16 @@ void TitleState::Exit()
 // End TitleState
 
 // Begin GameState
-GameState::GameState(){}
+GameState::GameState() {}
 
 void GameState::Enter() // Used for initialization.
 {
+	m_level = new TiledLevel(50, 200, 32, 32, "Dat/Tiledata.txt", "Dat/Level1.txt", "tiles");
 	TEMA::Load("Img/Tiles.png", "tiles");
 	TEMA::Load("Img/GolemTesting.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
-		new EnemyMelee({ 0, 0, 1500, 1500}, { 462.0f, 334.0f, 50.0f, 50.0f })));
-	m_level = new TiledLevel(24, 32, 32, 32, "Dat/Tiledata.txt", "Dat/Level1.txt", "tiles");
+		new EnemyMelee({ 0, 0, 1500, 1500 }, { 462.0f, 334.0f, 50.0f, 50.0f })));
+
 
 }
 
@@ -113,6 +114,7 @@ void GameState::Update()
 {
 	for (auto const& i : m_objects)
 	{
+		m_level->Update();
 		i.second->Update();
 		if (STMA::StateChanging()) return;
 	}
@@ -123,11 +125,10 @@ void GameState::Render()
 
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
+	m_level->Render();
 	for (auto const& i : m_objects)
 		i.second->Render();
-	m_level->Render();
-
-	if ( dynamic_cast<GameState*>(STMA::GetStates().back()) ) // Check to see if current state is of type GameState
+	if (dynamic_cast<GameState*>(STMA::GetStates().back())) // Check to see if current state is of type GameState
 		State::Render();
 
 
@@ -151,5 +152,5 @@ void GameState::Exit()
 	}
 }
 
-void GameState::Resume(){}
+void GameState::Resume() {}
 // End GameState

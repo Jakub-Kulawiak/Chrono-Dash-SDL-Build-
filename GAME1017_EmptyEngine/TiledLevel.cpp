@@ -1,5 +1,27 @@
 #include "TiledLevel.h"
 
+#include "EventManager.h"
+
+void Tile::Update()
+{
+	if (EVMA::KeyHeld(SDL_SCANCODE_W))
+	{
+		this->m_dst.y += 15;
+	}
+	else if (EVMA::KeyHeld(SDL_SCANCODE_S))
+	{
+		this->m_dst.y -= 15;
+	}
+	if (EVMA::KeyHeld(SDL_SCANCODE_A))
+	{
+		this->m_dst.x += 15;
+	}
+	else if (EVMA::KeyHeld(SDL_SCANCODE_D))
+	{
+		this->m_dst.x -= 15;
+	}
+}
+
 TiledLevel::TiledLevel(const unsigned short r, const unsigned short c, const int w, const int h,
 	const char* tileData, const char* levelData, const char* tileKey) :m_rows(r), m_cols(c), m_tileKey(tileKey)
 {
@@ -58,6 +80,22 @@ TiledLevel::~TiledLevel()
 		i->second = nullptr;
 	}
 	m_tiles.clear();
+}
+
+
+void TiledLevel::Update()
+{
+
+	m_level.resize(m_rows); // Important or we cannot use subscripts.
+	for (unsigned short row = 0; row < m_rows; row++)
+	{
+		m_level[row].resize(m_cols);
+		for (unsigned short col = 0; col < m_cols; col++)
+		{
+			m_level[row][col]->Update();
+
+		}
+	}
 }
 
 void TiledLevel::Render()
