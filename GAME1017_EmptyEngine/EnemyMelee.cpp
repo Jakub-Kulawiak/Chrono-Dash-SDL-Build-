@@ -1,4 +1,5 @@
 #include "EnemyMelee.h"
+#include "PlatformPlayer.h"
 
 EnemyMelee::EnemyMelee(SDL_Rect s, SDL_FRect d) : AnimatedSpriteObject(s, d)
 {

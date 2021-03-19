@@ -10,9 +10,16 @@
 #include "Button3.h"
 #include "EnemyMelee.h"
 #include "EnemyMeleeBat.h"
+<<<<<<< Updated upstream
 
 #include <iostream>
 
+=======
+#include "LoseStateObjects.h"
+#include <iostream>
+
+
+>>>>>>> Stashed changes
 using namespace std;
 
 void State::Render()
@@ -104,10 +111,22 @@ void GameState::Enter() // Used for initialization.
 {
 	TEMA::Load("Img/GolemTesting.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
+<<<<<<< Updated upstream
 		new EnemyMelee({ 0, 0, 1500, 1500}, { 462.0f, 334.0f, 50.0f, 50.0f })));
 	TEMA::Load("Img/BatTesting.png", "enemyMeleeBat");
 	m_objects.push_back(pair<string, GameObject*>("enemyMeleeBat",
 		new EnemyMeleeBat({ 0, 0, 80, 72 }, { 100.0f, 300.0f, 40.0f, 40.0f })));
+=======
+		new EnemyMelee({ 0, 0, 35,35}, { 630.0f, 460.0f, 90.0f, 90.0f })));
+	TEMA::Load("Img/Bat.png", "enemyMeleeBat");
+	m_objects.push_back(pair<string, GameObject*>("enemyMeleeBat",
+		new EnemyMeleeBat({ 0, 0, 16,16 }, { 400.0f, 460.0f, 200.0f, 200.0f })));
+
+	TEMA::Load("Img/Player.png", "Player");
+	TEMA::Load("Img/Bullet.png", "Bullet");
+	m_objects.push_back(pair<string, GameObject*>("Player",
+		new PlatformPlayer({ 0, 0, 577, 529 }, { 300.0f, 450.0f, 100.0f, 100.0f })));
+>>>>>>> Stashed changes
 }
 
 void GameState::Update()
@@ -139,7 +158,11 @@ void GameState::Exit()
 	SOMA::Unload("explode", SOUND_SFX);
 	SOMA::Unload("wings", SOUND_MUSIC);
 	TEMA::Unload("enemyMelee");
+<<<<<<< Updated upstream
 	TEMA::Unload("enemyMelee2");
+=======
+	TEMA::Unload("enemyMeleeBat");
+>>>>>>> Stashed changes
 	for (auto& i : m_objects)
 	{
 		delete i.second;
