@@ -64,12 +64,15 @@
     <ClCompile Include="EnemyMelee.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="EnemyMeleeBat.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="EnemyMeleeBat.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+=======
+>>>>>>> parent of 985c092 (Added a bat sprite w/golem)
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -117,12 +120,15 @@
     <ClInclude Include="EnemyMelee.h">
       <Filter>Objects</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="EnemyMeleeBat.h">
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="EnemyMeleeBat.h">
       <Filter>Objects</Filter>
     </ClInclude>
+=======
+>>>>>>> parent of 985c092 (Added a bat sprite w/golem)
   </ItemGroup>
   <ItemGroup>
     <Image Include="Img\Tiles.png">
@@ -146,6 +152,7 @@
     <Image Include="Img\526fb65f4e01e59d2489b017813302e8.png">
       <Filter>Resource Files</Filter>
     </Image>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     <Image Include="Img\Bat_Sprite_Sheet.png">
       <Filter>Resource Files</Filter>
@@ -156,6 +163,8 @@
 >>>>>>> Stashed changes
       <Filter>Resource Files</Filter>
     </Image>
+=======
+>>>>>>> parent of 985c092 (Added a bat sprite w/golem)
   </ItemGroup>
   <ItemGroup>
     <Text Include="Dat\Level1.txt">
