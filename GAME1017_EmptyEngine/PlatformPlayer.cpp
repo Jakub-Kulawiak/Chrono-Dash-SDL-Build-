@@ -172,6 +172,20 @@ void PlatformPlayer::Update()
 			m_state = STATE_IDLING;
 			SetAnimation(10, 1, 10, 1150);
 		}
+
+		if (EVMA::KeyPressed(SDL_SCANCODE_A) || EVMA::KeyPressed(SDL_SCANCODE_D))
+		{
+			m_state = STATE_RUNNING;
+			SetAnimation(9, 1, 9, 550); // , 256
+		}
+
+		else if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)
+		{
+			m_accelY = -JUMPFORCE; // SetAccelY(-JUMPFORCE);
+			m_grounded = false; // SetGrounded(false);
+			m_state = STATE_JUMPING;
+			SetAnimation(5, 1, 5, 1635);
+		}
 		break;
 	}
 	
@@ -192,7 +206,6 @@ void PlatformPlayer::Update()
 	if (m_health <= 0)
 	{
 		STMA::ChangeState(new LoseState());
-
 	}
 }
 
