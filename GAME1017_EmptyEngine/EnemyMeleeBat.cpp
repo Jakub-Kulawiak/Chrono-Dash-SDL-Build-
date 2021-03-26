@@ -26,7 +26,7 @@ void EnemyMeleeBat::Update()
 	{
 		// fMax, sMin, sMax, srcY
 
-		SetAnimation(5, 1, 5);
+		
 
 
 
@@ -41,7 +41,7 @@ void EnemyMeleeBat::Update()
 		// Right
 		if (m_facingLeft == false)
 		{
-
+			SetAnimation(5, 1, 5);
 			m_accelX += 0.01;
 			m_timer += 1;
 		}
@@ -49,6 +49,7 @@ void EnemyMeleeBat::Update()
 		// Left
 		else if (m_facingLeft == true)
 		{
+			
 			m_accelX -= 0.01;
 			m_timer -= 1;
 		}
@@ -63,7 +64,7 @@ void EnemyMeleeBat::Update()
 			m_facingLeft = false;
 		}
 
-
+		
 
 
 
@@ -95,6 +96,7 @@ void EnemyMeleeBat::Update()
 
 
 	// Invoke the animation.
+	
 	Animate();
 }
 
