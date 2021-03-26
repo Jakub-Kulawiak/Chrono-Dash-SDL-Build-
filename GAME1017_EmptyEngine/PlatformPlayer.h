@@ -1,10 +1,20 @@
 #pragma once
 #ifndef _PLATFORMPLAYER_H_
 #define _PLATFORMPLAYER_H_
-
+#include <vector>
 #include "GameObject.h"
-#define GRAV 2.0
+#define GRAV 0.0
 #define JUMPFORCE 25.0
+
+class PlayerBullet : public AnimatedSpriteObject
+{
+public:
+	PlayerBullet(SDL_Rect s, SDL_FRect d, bool facingLeft);
+	void Update();
+	void Render();
+private:
+	int m_bulletSpeed;
+};
 
 class PlatformPlayer : public AnimatedSpriteObject
 {
@@ -17,6 +27,7 @@ public: // Methods.
 	void StopY();
 	void SetAccelX(double a);
 	void SetAccelY(double a);
+	bool IsFacingLeft();
 	bool IsGrounded();
 	void SetGrounded(bool g);
 	double GetVelX();
@@ -24,6 +35,8 @@ public: // Methods.
 	void SetX(float x);
 	void SetY(float y);
 private: // Properties.
+	vector<PlayerBullet*> m_bullets;
+	int m_counter = 0;
 	bool m_grounded, m_facingLeft;
 	double m_accelX,
 		m_accelY,
@@ -33,7 +46,8 @@ private: // Properties.
 		m_maxVelY,
 		m_drag,
 		m_grav;
-	enum PlayerState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING } m_state;
+	enum PlayerState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING, STATE_SHOOTING } m_state;
+	int m_health;
 };
 
 #endif

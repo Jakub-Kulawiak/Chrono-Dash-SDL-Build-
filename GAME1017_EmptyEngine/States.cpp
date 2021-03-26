@@ -9,11 +9,11 @@
 #include "Primitives.h"
 #include "Button3.h"
 #include "EnemyMelee.h"
+#include "EnemyMeleeBat.h"
+#include "EnemySpider.h"
 #include "LoseStateObjects.h"
-
-
-
 #include <iostream>
+
 using namespace std;
 
 void State::Render()
@@ -106,9 +106,19 @@ void GameState::Enter() // Used for initialization.
 	TEMA::Load("Img/Tiles.png", "tiles");
 	TEMA::Load("Img/Mini Golem Sprite Sheet.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
-		new EnemyMelee({ 0, 0, 35,35}, { 462.0f, 334.0f, 90.0f, 90.0f })));
+		new EnemyMelee({ 0, 0, 35,35}, { 630.0f, 460.0f, 90.0f, 90.0f })));
+	TEMA::Load("Img/Bat.png", "enemyMeleeBat");
+	m_objects.push_back(pair<string, GameObject*>("enemyMeleeBat",
+		new EnemyMeleeBat({ 0, 0, 16,16 }, { 250.0f, 460.0f, 150.0f, 150.0f })));
 
+	TEMA::Load("Img/Spider Sprite Sheet.png", "enemySpider");
+	m_objects.push_back(pair<string, GameObject*>("enemySpider",
+		new EnemySpider({ 0, 0, 33,41 }, { 400.0f, 460.0f, 200.0f, 200.0f })));
 	
+	TEMA::Load("Img/Player.png", "Player");
+	TEMA::Load("Img/Bullet.png", "Bullet");
+	m_objects.push_back(pair<string, GameObject*>("Player",
+		new PlatformPlayer({ 0, 0, 577, 529 }, { 300.0f, 450.0f, 100.0f, 100.0f })));
 }
 
 void GameState::Update()
@@ -128,7 +138,6 @@ void GameState::Update()
 
 void GameState::Render()
 {
-
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	m_level->Render();
@@ -136,8 +145,6 @@ void GameState::Render()
 		i.second->Render();
 	if ( dynamic_cast<GameState*>(STMA::GetStates().back()) ) // Check to see if current state is of type GameState
 		State::Render();
-
-
 }
 
 void GameState::Exit()
@@ -145,6 +152,8 @@ void GameState::Exit()
 	SOMA::StopSound();
 	SOMA::StopMusic();
 	TEMA::Unload("enemyMelee");
+	TEMA::Unload("enemyMeleeBat");
+	TEMA::Unload("enemySpider");
 	for (auto& i : m_objects)
 	{
 		delete i.second;
@@ -181,13 +190,11 @@ void LoseState::Update()
 
 void LoseState::Render()
 {
-
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	for (auto const& i : m_objects)
 		i.second->Render();
 	State::Render();
-
 }
 
 void LoseState::Exit()
