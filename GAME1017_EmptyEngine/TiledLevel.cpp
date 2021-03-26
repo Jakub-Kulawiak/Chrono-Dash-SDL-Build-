@@ -51,7 +51,7 @@ TiledLevel::TiledLevel(const unsigned short r, const unsigned short c, const int
 			{
 				inFile >> key;
 				m_level[row][col] = m_tiles[key]->Clone(); // Common prototype method.
-				m_level[row][col]->SetXY((float)(col * w), (float)(row * h)-832);
+				m_level[row][col]->SetXY((float)(col * w), (float)(row * h));
 				if (m_level[row][col]->IsObstacle())
 					m_obstacles.push_back(m_level[row][col]);
 			}
