@@ -29,7 +29,7 @@ public:
 	SDL_Rect* GetSrc() { return &m_src; }
 protected: // Attributes.
 	SDL_Rect m_src;
-protected: // Methods.
+protected: // Methods
 	SpriteObject(const SDL_Rect s, const SDL_FRect d) :GameObject(d), m_src(s) {}
 };
 
