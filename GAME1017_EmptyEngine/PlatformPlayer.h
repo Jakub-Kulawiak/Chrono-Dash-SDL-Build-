@@ -46,7 +46,7 @@ private: // Properties.
 		m_maxVelY,
 		m_drag,
 		m_grav;
-	enum PlayerState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING, STATE_SHOOTING } m_state;
+	enum PlayerState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING } m_state;
 	int m_health;
 };
 
