@@ -164,11 +164,11 @@ void PlatformPlayer::Update()
 		}
 		break;
 	case STATE_SHOOTING:
-		counter++;
+		m_counter++;
 
-		if (counter == 10)
+		if (m_counter == 10)
 		{
-			counter = 0;
+			m_counter = 0;
 			m_state = STATE_IDLING;
 			SetAnimation(10, 1, 10, 1150);
 		}

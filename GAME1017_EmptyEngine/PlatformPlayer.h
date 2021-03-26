@@ -36,7 +36,7 @@ public: // Methods.
 	void SetY(float y);
 private: // Properties.
 	vector<PlayerBullet*> m_bullets;
-	int counter = 0;
+	int m_counter = 0;
 	bool m_grounded, m_facingLeft;
 	double m_accelX,
 		m_accelY,
