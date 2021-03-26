@@ -14,6 +14,7 @@ public:
 	void Render();
 private:
 	int m_bulletSpeed;
+	
 };
 
 class PlatformPlayer : public AnimatedSpriteObject
@@ -46,7 +47,7 @@ private: // Properties.
 		m_maxVelY,
 		m_drag,
 		m_grav;
-	enum PlayerState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING } m_state;
+	enum PlayerState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING, STATE_SHOOTING } m_state;
 	int m_health;
 };
 

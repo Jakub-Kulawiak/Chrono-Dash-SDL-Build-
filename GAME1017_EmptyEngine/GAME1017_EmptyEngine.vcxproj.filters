@@ -67,6 +67,12 @@
     <ClCompile Include="PlatformPlayer.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyMeleeBat.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySpider.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -117,6 +123,12 @@
     <ClInclude Include="LoseStateObjects.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyMeleeBat.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpider.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Img\Tiles.png">
@@ -138,6 +150,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Img\526fb65f4e01e59d2489b017813302e8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Img\Bat.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Img\Spider Sprite Sheet.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
