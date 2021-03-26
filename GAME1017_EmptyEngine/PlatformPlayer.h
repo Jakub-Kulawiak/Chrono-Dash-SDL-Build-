@@ -47,6 +47,7 @@ private: // Properties.
 		m_drag,
 		m_grav;
 	enum PlayerState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING, STATE_SHOOTING } m_state;
+	int m_health;
 };
 
 #endif
