@@ -128,7 +128,6 @@ void GameState::Update()
 
 void GameState::Render()
 {
-
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	m_level->Render();
@@ -136,8 +135,6 @@ void GameState::Render()
 		i.second->Render();
 	if ( dynamic_cast<GameState*>(STMA::GetStates().back()) ) // Check to see if current state is of type GameState
 		State::Render();
-
-
 }
 
 void GameState::Exit()
@@ -181,13 +178,11 @@ void LoseState::Update()
 
 void LoseState::Render()
 {
-
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	for (auto const& i : m_objects)
 		i.second->Render();
 	State::Render();
-
 }
 
 void LoseState::Exit()

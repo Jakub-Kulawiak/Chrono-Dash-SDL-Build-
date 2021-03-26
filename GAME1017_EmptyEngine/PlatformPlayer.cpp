@@ -54,20 +54,26 @@ void PlatformPlayer::Update()
 		{
 			if (m_facingLeft)
 			{
-				m_bullets.push_back(new PlayerBullet({ 0, 0, 172, 139 }, { this->GetDst()->x - 20, this->GetDst()->y + 50, 17.0f, 14.0f }, m_facingLeft));
+				m_bullets.push_back(new PlayerBullet({ 0, 0, 172, 139 }, { this->GetDst()->x - 20, this->GetDst()->y + 40, 17.0f, 14.0f }, m_facingLeft));
+				SetAnimation(4, 1, 4, 2200);
+				m_state = STATE_SHOOTING;
 			}
 
 			if (!m_facingLeft)
 			{
 				m_bullets.push_back(new PlayerBullet({ 0, 0, 172, 139 }, { this->GetDst()->x + 80, this->GetDst()->y + 50, 17.0f, 14.0f }, m_facingLeft));
+				SetAnimation(4, 1, 4, 2200);
+				m_state = STATE_SHOOTING;
 			}
 		}
+
 		// Transition to run.
 		if (EVMA::KeyPressed(SDL_SCANCODE_A) || EVMA::KeyPressed(SDL_SCANCODE_D))
 		{
 			m_state = STATE_RUNNING;
 			SetAnimation(9, 1, 9, 550); // , 256
 		}
+
 		// Transition to jump.
 		else if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)
 		{
@@ -79,7 +85,6 @@ void PlatformPlayer::Update()
 		break;
 	case STATE_RUNNING:
 		// Move left and right.
-
 		if (EVMA::MousePressed(SDL_BUTTON_LEFT))
 		{
 			if (m_facingLeft)
@@ -105,6 +110,7 @@ void PlatformPlayer::Update()
 			if (m_facingLeft)
 				m_facingLeft = false;
 		}
+		
 		// Transition to jump.
 		if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)
 		{
@@ -113,6 +119,7 @@ void PlatformPlayer::Update()
 			m_state = STATE_JUMPING;
 			SetAnimation(5, 1, 5, 1635);
 		}
+		
 		// Transition to idle.
 		if (!EVMA::KeyHeld(SDL_SCANCODE_A) && !EVMA::KeyHeld(SDL_SCANCODE_D))
 		{
@@ -147,6 +154,7 @@ void PlatformPlayer::Update()
 			if (m_facingLeft)
 				m_facingLeft = false;
 		}
+		
 		// Hit the ground, transition to run.
 		if (m_grounded)
 		{
@@ -154,7 +162,18 @@ void PlatformPlayer::Update()
 			SetAnimation(9, 1, 9, 550);
 		}
 		break;
+	case STATE_SHOOTING:
+		counter++;
+
+		if (counter == 10)
+		{
+			counter = 0;
+			m_state = STATE_IDLING;
+			SetAnimation(10, 1, 10, 1150);
+		}
+		break;
 	}
+	
 	// Player movement. X axis first.
 	m_velX += m_accelX;
 	m_velX *= (m_grounded ? m_drag : 1.0); // Cheeky deceleration.
