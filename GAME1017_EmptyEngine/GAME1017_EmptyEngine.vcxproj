@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="Button3.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="EndGoal.cpp" />
     <ClCompile Include="EnemyMelee.cpp" />
     <ClCompile Include="EnemyMeleeBat.cpp" />
     <ClCompile Include="EnemySpider.cpp" />
@@ -162,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="Button3.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="EndGoal.h" />
     <ClInclude Include="EnemyMelee.h" />
     <ClInclude Include="EnemyMeleeBat.h" />
     <ClInclude Include="EnemySpider.h" />
