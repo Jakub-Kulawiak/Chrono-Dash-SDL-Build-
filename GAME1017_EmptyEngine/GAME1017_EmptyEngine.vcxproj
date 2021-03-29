@@ -182,13 +182,17 @@
   <ItemGroup>
     <Image Include="Img\526fb65f4e01e59d2489b017813302e8.png" />
     <Image Include="Img\background.png" />
+    <Image Include="Img\background1.png" />
     <Image Include="Img\Bat.png" />
     <Image Include="Img\button.png" />
+    <Image Include="Img\Gate.png" />
     <Image Include="Img\Player.png" />
+    <Image Include="Img\props1.png" />
     <Image Include="Img\Spider Sprite Sheet.png" />
     <Image Include="Img\Sprites.png" />
     <Image Include="Img\Tiles.png" />
     <Image Include="Img\Title.png" />
+    <Image Include="Img\Wood.png" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Dat\Level1.txt" />

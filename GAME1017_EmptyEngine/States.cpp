@@ -102,8 +102,43 @@ GameState::GameState(){}
 
 void GameState::Enter() // Used for initialization.
 {
-	m_level = new TiledLevel(50, 200, 32, 32, "Dat/Tiledata.txt", "Dat/Level1.txt", "tiles");
-	TEMA::Load("Img/Tiles.png", "tiles");
+	TEMA::Load("Img/background1.png", "bg");
+	m_objects.push_back(pair<string, GameObject*>("bg",
+		new Image({ 0, 0, 960, 480 }, { 0, 0, 1024, 768 }, "bg")));
+	TEMA::Load("Img/background1.png", "bg");
+	m_objects.push_back(pair<string, GameObject*>("bg",
+		new Image({ 0, 0, 960, 480 }, { 1024, 0, 1024, 768 }, "bg")));
+	TEMA::Load("Img/props1.png", "Rock1");
+	m_objects.push_back(pair<string, GameObject*>("Rock1",
+		new Image({ 0, 0, 158, 53 }, { 0, 720, 200, 50 }, "Rock1")));
+	TEMA::Load("Img/props1.png", "Rock1");
+	m_objects.push_back(pair<string, GameObject*>("Rock1",
+		new Image({ 0, 0, 158, 53 }, { 280, 720, 200, 50 }, "Rock1")));
+	TEMA::Load("Img/props1.png", "Rock1");
+	m_objects.push_back(pair<string, GameObject*>("Rock1",
+		new Image({ 0, 0, 158, 53 }, { 580, 720, 200, 50 }, "Rock1")));
+	TEMA::Load("Img/Wood.png", "Wood");
+	m_objects.push_back(pair<string, GameObject*>("Wood",
+		new Image({ 0, 0, 168, 25 }, { 0, 450, 200, 30 }, "Wood")));
+	TEMA::Load("Img/Wood.png", "Wood");
+	m_objects.push_back(pair<string, GameObject*>("Wood",
+		new Image({ 0, 0, 168, 25 }, { 820, 625, 200, 30 }, "Wood")));
+	TEMA::Load("Img/Wood.png", "Wood");
+	m_objects.push_back(pair<string, GameObject*>("Wood",
+		new Image({ 0, 0, 168, 25 }, { 220, 600, 80, 30 }, "Wood")));
+	TEMA::Load("Img/Wood.png", "Wood");
+	m_objects.push_back(pair<string, GameObject*>("Wood",
+		new Image({ 0, 0, 168, 25 }, { 480, 600, 80, 30 }, "Wood")));
+	TEMA::Load("Img/Wood.png", "Wood");
+	m_objects.push_back(pair<string, GameObject*>("Wood",
+		new Image({ 0, 0, 168, 25 }, { 820, 350, 200, 30 }, "Wood")));
+	TEMA::Load("Img/Wood.png", "Wood");
+	m_objects.push_back(pair<string, GameObject*>("Wood",
+		new Image({ 0, 0, 168, 25 }, { 620, 500, 200, 30 }, "Wood")));
+	TEMA::Load("Img/Gate.png", "Gate");
+	m_objects.push_back(pair<string, GameObject*>("Gate",
+		new Image({ 0, 0, 48, 65 }, { 940, 280, 70, 70 }, "Gate")));
+
 	TEMA::Load("Img/Mini Golem Sprite Sheet.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
 		new EnemyMelee({ 0, 0, 35,35}, { 630.0f, 460.0f, 90.0f, 90.0f })));
@@ -125,7 +160,6 @@ void GameState::Update()
 {
 	for (auto const& i : m_objects)
 	{
-		m_level->Update();
 		i.second->Update();
 		if (STMA::StateChanging()) return;
 	}
@@ -140,7 +174,6 @@ void GameState::Render()
 {
 	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::Instance().GetRenderer());
-	m_level->Render();
 	for (auto const& i : m_objects)
 		i.second->Render();
 	if ( dynamic_cast<GameState*>(STMA::GetStates().back()) ) // Check to see if current state is of type GameState

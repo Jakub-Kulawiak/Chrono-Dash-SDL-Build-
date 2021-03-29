@@ -158,6 +158,18 @@
     <Image Include="Img\Spider Sprite Sheet.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Img\background1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Img\Gate.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Img\Wood.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Img\props1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Dat\Level1.txt">
