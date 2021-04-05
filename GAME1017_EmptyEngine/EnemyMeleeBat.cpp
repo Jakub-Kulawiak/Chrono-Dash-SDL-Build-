@@ -8,8 +8,8 @@ EnemyMeleeBat::EnemyMeleeBat(SDL_Rect s, SDL_FRect d) : AnimatedSpriteObject(s, 
 	m_velY = 0.0;
 	m_accelX = 0.0;
 	m_accelY = 0.0;
-	m_frame = 0;
-	m_facingLeft = false;
+	m_frame = 1;
+	m_facingLeft = true;
 	m_grounded = true;
 	m_timer = 0;
 
@@ -25,10 +25,10 @@ void EnemyMeleeBat::Update()
 	case IDLE:
 	{
 		// fMax, sMin, sMax, srcY
-
 		
+		SetAnimation(10, 0, 5);
 
-
+		cout << "doing the idle thing";
 
 
 
@@ -37,11 +37,11 @@ void EnemyMeleeBat::Update()
 
 	case MOVE:
 	{
-
+		
 		// Right
 		if (m_facingLeft == false)
 		{
-			SetAnimation(5, 1, 5);
+			
 			m_accelX += 0.01;
 			m_timer += 1;
 		}
@@ -56,11 +56,13 @@ void EnemyMeleeBat::Update()
 
 		if (m_timer == 120)
 		{
+			SetAnimation(10, 0, 5);
 			m_facingLeft = true;
 		}
 
 		else if (m_timer == -120)
 		{
+			SetAnimation(10, 0, 5);
 			m_facingLeft = false;
 		}
 

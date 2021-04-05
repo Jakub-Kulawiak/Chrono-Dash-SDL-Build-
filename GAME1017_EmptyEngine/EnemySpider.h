@@ -31,7 +31,7 @@ private: // Properties.
 		m_grav;
 	int m_timer;
 
-	enum enemyMeleeState { IDLE, MOVE, ATTACK } m_state;
+	enum enemySpiderState { IDLE, MOVE, ATTACK } m_state;
 
 };
 
