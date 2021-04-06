@@ -202,11 +202,6 @@ void PlatformPlayer::Update()
 	m_accelX = m_accelY = 0.0; // Resetting accel every frame.
 	// Invoke the animation.
 	Animate();
-
-	if (m_health <= 0)
-	{
-		STMA::ChangeState(new LoseState());
-	}
 }
 
 void PlatformPlayer::Render()
@@ -247,3 +242,6 @@ double PlatformPlayer::GetVelY() { return m_velY; }
 void PlatformPlayer::SetX(float x) { m_dst.x = x; }
 
 void PlatformPlayer::SetY(float y) { m_dst.y = y; }
+
+int PlatformPlayer::GetHealth() { return m_health; }
+

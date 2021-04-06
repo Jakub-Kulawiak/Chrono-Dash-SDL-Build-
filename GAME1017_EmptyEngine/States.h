@@ -4,6 +4,7 @@
 
 #include "TiledLevel.h"
 #include "GameObject.h"
+#include "PlatformPlayer.h"
 
 class State // This is the abstract base class for all states
 {
@@ -41,7 +42,8 @@ public:
 	virtual void Render();
 	virtual void Exit();
 	virtual void Resume();
-private:TiledLevel* m_level = nullptr;
+private:TiledLevel* m_level = nullptr; 
+	   PlatformPlayer* m_pPlayer = nullptr;
 };
 
 class LoseState : public State

@@ -153,7 +153,7 @@ void GameState::Enter() // Used for initialization.
 	TEMA::Load("Img/Player.png", "Player");
 	TEMA::Load("Img/Bullet.png", "Bullet");
 	m_objects.push_back(pair<string, GameObject*>("Player",
-		new PlatformPlayer({ 0, 0, 577, 529 }, { 300.0f, 450.0f, 100.0f, 100.0f })));
+		m_pPlayer = new PlatformPlayer({ 0, 0, 577, 529 }, { 300.0f, 450.0f, 100.0f, 100.0f })));
 }
 
 void GameState::Update()
@@ -168,6 +168,24 @@ void GameState::Update()
 		i.second->Update();
 		if (STMA::StateChanging()) return;
 	}
+
+	//std::cout << m_pPlayer->GetHealth() << std::endl;
+	
+	
+		std::cout << "hfadsdfi" << std::endl;
+		
+		if (m_pPlayer->GetHealth() <= 0)
+		{
+			LoseState* m_pPlayerHealth = new LoseState;
+			STMA::ChangeState(m_pPlayerHealth);
+			
+			
+			std::cout << "hi" << std::endl;
+		}
+	
+	
+
+	
 }
 
 void GameState::Render()

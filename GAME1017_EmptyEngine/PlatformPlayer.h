@@ -34,6 +34,7 @@ public: // Methods.
 	double GetVelY();
 	void SetX(float x);
 	void SetY(float y);
+	int GetHealth();
 private: // Properties.
 	vector<PlayerBullet*> m_bullets;
 	int m_counter = 0;
