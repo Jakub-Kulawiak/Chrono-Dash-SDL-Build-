@@ -1,23 +1,23 @@
 #include "EndGoal.h"
 
 
-void EndGoal::SetRekts(const SDL_Rect src, const SDL_Rect dst)
+EndGoal::EndGoal(SDL_Rect src, SDL_FRect dst) : SpriteObject(src,dst)
 {
-	m_src = src;
-	m_dst = dst;
 }
-SDL_Rect* EndGoal::GetRectSrc()
-{
-	return &m_src;
-}
-SDL_Rect* EndGoal::GetRectDst()
-{
-	return &m_dst;
-}
+
+EndGoal::~EndGoal() = default;
+
 
 void EndGoal::Update()
 {
-	this->m_dst.x -= 2;
+	
+}
+
+void EndGoal::Render()
+{
+	
+	SDL_RenderCopyExF(Engine::Instance().GetRenderer(), TEMA::GetTexture("portal"),
+		&m_src, &m_dst,0.0, nullptr, SDL_FLIP_HORIZONTAL);
 }
 
 

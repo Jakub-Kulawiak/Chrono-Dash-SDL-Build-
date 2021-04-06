@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
+<<<<<<< HEAD
   <ProjectOutputs>
     <ProjectOutput>
       <FullPath>C:\Users\Dylan Tran\Downloads\SDL Projects\Semester 2\Chrono-Dash-SDL-Build-\Debug\GAME1017_EmptyEngine.exe</FullPath>
@@ -8,4 +9,10 @@
   <ContentFiles />
   <SatelliteDlls />
   <NonRecipeFileRefs />
+=======
+  <ProjectOutputs>C:\Users\doyou\Desktop\ChronoDashSDL\Chrono-Dash-SDL-Build-\Debug\GAME1017_EmptyEngine.exe</ProjectOutputs>
+  <ContentFiles></ContentFiles>
+  <SatelliteDlls></SatelliteDlls>
+  <NonRecipeFileRefs></NonRecipeFileRefs>
+>>>>>>> main
 </Project>

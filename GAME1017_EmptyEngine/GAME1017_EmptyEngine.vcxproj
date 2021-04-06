@@ -189,6 +189,7 @@
     <Image Include="Img\button.png" />
     <Image Include="Img\Gate.png" />
     <Image Include="Img\Player.png" />
+    <Image Include="Img\Portal.png" />
     <Image Include="Img\props1.png" />
     <Image Include="Img\Spider Sprite Sheet.png" />
     <Image Include="Img\Sprites.png" />

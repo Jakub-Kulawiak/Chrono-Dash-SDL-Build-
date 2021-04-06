@@ -8,7 +8,7 @@ EnemySpider::EnemySpider(SDL_Rect s, SDL_FRect d) : AnimatedSpriteObject(s, d)
 	m_velY = 0.0;
 	m_accelX = 0.0;
 	m_accelY = 0.0;
-	m_frame = 0;
+	m_frame = 1;
 	m_facingLeft = false;
 	m_grounded = true;
 	m_timer = 0;
@@ -41,7 +41,6 @@ void EnemySpider::Update()
 		// Right
 		if (m_facingLeft == false)
 		{
-			SetAnimation(5, 1, 5);
 			m_accelX += 0.01;
 			m_timer += 1;
 		}
@@ -55,11 +54,13 @@ void EnemySpider::Update()
 
 		if (m_timer == 120)
 		{
+			SetAnimation(15, 0, 5);
 			m_facingLeft = true;
 		}
 
 		else if (m_timer == -120)
 		{
+			SetAnimation(15, 0, 5);
 			m_facingLeft = false;
 		}
 
