@@ -65,12 +65,6 @@ void EnemyMelee::Update()
 			m_facingLeft = false;
 		}
 
-		
-	
-
-			
-		std::cout << m_timer << endl;
-
 	
 		
 		

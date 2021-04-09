@@ -68,7 +68,6 @@ void EnemySpider::Update()
 
 
 
-		std::cout << m_timer << endl;
 
 
 

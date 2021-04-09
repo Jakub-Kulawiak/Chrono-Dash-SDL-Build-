@@ -102,55 +102,57 @@ GameState::GameState(){}
 
 void GameState::Enter() // Used for initialization.
 {
+	//Backgrounds
 	TEMA::Load("Img/background1.png", "bg");
 	m_objects.push_back(pair<string, GameObject*>("bg",
 		new Image({ 0, 0, 960, 480 }, { 0, 0, 1024, 768 }, "bg")));
-	TEMA::Load("Img/background1.png", "bg");
 	m_objects.push_back(pair<string, GameObject*>("bg",
 		new Image({ 0, 0, 960, 480 }, { 1024, 0, 1024, 768 }, "bg")));
+
+	//Rock Platforms
 	TEMA::Load("Img/props1.png", "Rock1");
 	m_objects.push_back(pair<string, GameObject*>("Rock1",
 		new Image({ 0, 0, 158, 53 }, { 0, 720, 200, 50 }, "Rock1")));
-	TEMA::Load("Img/props1.png", "Rock1");
 	m_objects.push_back(pair<string, GameObject*>("Rock1",
 		new Image({ 0, 0, 158, 53 }, { 280, 720, 200, 50 }, "Rock1")));
-	TEMA::Load("Img/props1.png", "Rock1");
 	m_objects.push_back(pair<string, GameObject*>("Rock1",
 		new Image({ 0, 0, 158, 53 }, { 580, 720, 200, 50 }, "Rock1")));
+
+	//Wood Platforms
 	TEMA::Load("Img/Wood.png", "Wood");
 	m_objects.push_back(pair<string, GameObject*>("Wood",
 		new Image({ 0, 0, 168, 25 }, { 0, 450, 200, 30 }, "Wood")));
-	TEMA::Load("Img/Wood.png", "Wood");
 	m_objects.push_back(pair<string, GameObject*>("Wood",
 		new Image({ 0, 0, 168, 25 }, { 820, 625, 200, 30 }, "Wood")));
-	TEMA::Load("Img/Wood.png", "Wood");
 	m_objects.push_back(pair<string, GameObject*>("Wood",
 		new Image({ 0, 0, 168, 25 }, { 220, 600, 80, 30 }, "Wood")));
-	TEMA::Load("Img/Wood.png", "Wood");
 	m_objects.push_back(pair<string, GameObject*>("Wood",
 		new Image({ 0, 0, 168, 25 }, { 480, 600, 80, 30 }, "Wood")));
-	TEMA::Load("Img/Wood.png", "Wood");
 	m_objects.push_back(pair<string, GameObject*>("Wood",
 		new Image({ 0, 0, 168, 25 }, { 820, 350, 200, 30 }, "Wood")));
-	TEMA::Load("Img/Wood.png", "Wood");
 	m_objects.push_back(pair<string, GameObject*>("Wood",
 		new Image({ 0, 0, 168, 25 }, { 620, 500, 200, 30 }, "Wood")));
+
+	//Gate object
 	TEMA::Load("Img/Gate.png", "Gate");
 	m_objects.push_back(pair<string, GameObject*>("Gate",
 		new Image({ 0, 0, 48, 65 }, { 940, 280, 70, 70 }, "Gate")));
 
+	//Enemy Objects
+	//Golem
 	TEMA::Load("Img/Mini Golem Sprite Sheet.png", "enemyMelee");
 	m_objects.push_back(pair<string, GameObject*>("enemyMelee",
 		new EnemyMelee({ 0, 0, 35,35}, { 630.0f, 460.0f, 90.0f, 90.0f })));
-	
+	//Bat
 	TEMA::Load("Img/Bat.png", "enemyMeleeBat");
 	m_objects.push_back(pair<string, GameObject*>("enemyMeleeBat",
 		new EnemyMeleeBat({ 0, 0, 16,16 }, { 120.0f, 370.0f, 80.0f, 80.0f })));
-
+	//Spider
 	TEMA::Load("Img/Spider Sprite Sheet.png", "enemySpider");
 	m_objects.push_back(pair<string, GameObject*>("enemySpider",
 		new EnemySpider({ 0, 0, 33,41 }, { 245.0f, 630.0f, 120.0f, 120.0f })));
-	
+
+	//Player Object
 	TEMA::Load("Img/Player.png", "Player");
 	TEMA::Load("Img/Bullet.png", "Bullet");
 	m_objects.push_back(pair<string, GameObject*>("Player",
@@ -169,20 +171,12 @@ void GameState::Update()
 		i.second->Update();
 		if (STMA::StateChanging()) return;
 	}
-
-	//std::cout << m_pPlayer->GetHealth() << std::endl;
-	
-	
-		std::cout << "hfadsdfi" << std::endl;
 		
-		if (m_pPlayer->GetHealth() <= 0)
-		{
-			LoseState* m_pPlayerHealth = new LoseState;
-			STMA::ChangeState(m_pPlayerHealth);
-			
-			
-			std::cout << "hi" << std::endl;
-		}
+	if (m_pPlayer->GetHealth() <= 0)
+	{
+		LoseState* m_pPlayerHealth = new LoseState;
+		STMA::ChangeState(m_pPlayerHealth);
+	}
 	
 	
 
@@ -206,6 +200,11 @@ void GameState::Exit()
 	TEMA::Unload("enemyMelee");
 	TEMA::Unload("enemyMeleeBat");
 	TEMA::Unload("enemySpider");
+	TEMA::Unload("Wood");
+	TEMA::Unload("Gate");
+	TEMA::Unload("Rock1");
+	TEMA::Unload("bg");
+	
 	for (auto& i : m_objects)
 	{
 		delete i.second;

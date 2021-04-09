@@ -28,7 +28,6 @@ void EnemyMeleeBat::Update()
 		
 		SetAnimation(10, 0, 5);
 
-		cout << "doing the idle thing";
 
 
 
@@ -70,7 +69,7 @@ void EnemyMeleeBat::Update()
 
 
 
-		std::cout << m_timer << endl;
+		
 
 
 
