@@ -50,7 +50,6 @@ TitleState::TitleState(){}
 
 void TitleState::Enter()
 {
-
 	TEMA::Load("Img/PholderButton.png", "play");
 	TEMA::Load("Img/Thing.png", "bg");
 	TEMA::Load("Img/PholderTitle.png", "title");
@@ -177,10 +176,6 @@ void GameState::Update()
 		LoseState* m_pPlayerHealth = new LoseState;
 		STMA::ChangeState(m_pPlayerHealth);
 	}
-	
-	
-
-	
 }
 
 void GameState::Render()

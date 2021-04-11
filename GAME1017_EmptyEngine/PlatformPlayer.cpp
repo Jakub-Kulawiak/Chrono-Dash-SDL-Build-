@@ -39,6 +39,7 @@ PlatformPlayer::PlatformPlayer(SDL_Rect s, SDL_FRect d) : AnimatedSpriteObject(s
 m_state(STATE_JUMPING), m_grounded(true), m_facingLeft(false), m_maxVelX(10.0),
 m_maxVelY(JUMPFORCE), m_grav(GRAV), m_drag(0.8), m_health(10)
 {
+	SOMA::Load("Aud/Jump.wav", "Jump", SOUND_SFX);
 	SOMA::Load("Aud/Shoot.wav", "Shoot", SOUND_SFX);
 	m_accelX = m_accelY = m_velX = m_velY = 0.0;
 	SetAnimation(5, 1, 5, 1635); // Initialize jump animation.
@@ -123,8 +124,9 @@ void PlatformPlayer::Update()
 		// Transition to jump.
 		if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)
 		{
+			SOMA::PlaySound("Jump");
 			m_accelY = -JUMPFORCE; 
-			m_grounded = false; 
+			m_grounded = false;
 			m_state = STATE_JUMPING;
 			SetAnimation(5, 1, 5, 1635);
 		}
