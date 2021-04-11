@@ -4,8 +4,9 @@
 #include "EventManager.h"
 #include "TextureManager.h"
 #include "StateManager.h"
+#include "SoundManager.h"
 
-Button3::Button3(SDL_Rect s, SDL_FRect d, const char* k) :SpriteObject(s, d), m_state(STATE_UP), m_key(k) {}
+Button3::Button3(SDL_Rect s, SDL_FRect d, const char* k) :SpriteObject(s, d), m_state(STATE_UP), m_key(k) { SOMA::Load("Aud/Select_Select Move.wav", "ButtonPress", SOUND_SFX); }
 
 void Button3::Update()
 {
@@ -43,10 +44,11 @@ void Button3::Render()
 	SDL_RenderCopyF(Engine::Instance().GetRenderer(), TEMA::GetTexture(m_key), &m_src, &m_dst);
 }
 
-PlayButton::PlayButton(SDL_Rect s, SDL_FRect d, const char* k) :Button3(s, d, k) {}
+PlayButton::PlayButton(SDL_Rect s, SDL_FRect d, const char* k) :Button3(s, d, k) { SOMA::Load("Aud/Select_Select Move.wav", "ButtonPress", SOUND_SFX); }
 
 void PlayButton::Execute()
 {
+	SOMA::PlaySound("ButtonPress");
 	STMA::ChangeState(new GameState());
 }
 
@@ -54,6 +56,7 @@ GameOverButton::GameOverButton(SDL_Rect s, SDL_FRect d, const char* k) :Button3(
 
 void GameOverButton::Execute()
 {
+	SOMA::PlaySound("ButtonPress");
 	STMA::ChangeState(new TitleState());
 }
 
