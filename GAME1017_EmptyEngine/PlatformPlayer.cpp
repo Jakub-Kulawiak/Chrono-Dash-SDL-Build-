@@ -211,7 +211,7 @@ void PlatformPlayer::Render()
 		m_bullets[i]->Render();
 	}
 
-	SDL_RenderCopyExF(Engine::Instance().GetRenderer(), TEMA::GetTexture("Player"),
+	SDL_RenderCopyExF(Engine::Instance().GetRenderer(), TEMA::GetTexture("player"),
 		&m_src, &m_dst, 0.0, NULL, (m_facingLeft?SDL_FLIP_HORIZONTAL:SDL_FLIP_NONE));
 }
 
