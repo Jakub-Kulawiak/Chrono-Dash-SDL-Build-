@@ -14,6 +14,7 @@ public:
 	void Render();
 private:
 	int m_bulletSpeed;
+	int m_facingLeft;
 };
 
 class PlatformPlayer : public AnimatedSpriteObject
