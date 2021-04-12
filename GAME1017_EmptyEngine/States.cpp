@@ -54,6 +54,10 @@ void TitleState::Enter()
 	TEMA::Load("Img/PholderButton.png", "play");
 	TEMA::Load("Img/Thing.png", "bg");
 	TEMA::Load("Img/PholderTitle.png", "title");
+	SOMA::Load("Aud/cave.mp3", "caveMusic" ,SOUND_MUSIC);
+	SOMA::Load("Aud/pew.wav", "pew", SOUND_SFX);
+	SOMA::SetSoundVolume(15);
+	SOMA::SetMusicVolume(25);
 	m_objects.emplace(pair<string, GameObject*>("bg",
 		new Image({ 0, 0, 1015, 768 }, { 0, 0, 1024, 768 }, "bg")));
 	m_objects.emplace(pair<string, GameObject*>("play",
@@ -62,7 +66,6 @@ void TitleState::Enter()
 	m_objects.emplace(pair<string, GameObject*>("title",
 		new Image({ 0, 0, 927, 215 }, { 50, 50, 927, 215 }, "title")));
 	SOMA::AllocateChannels(16);
-	SOMA::SetMusicVolume(32);
 }
 
 void TitleState::Update()
@@ -127,6 +130,8 @@ void GameState::Enter() // Used for initialization.
 
 	TEMA::Load("Img/Tiles.png", "tiles");
 	m_objects.emplace("level", new TiledLevel(50, 200, 32, 32, "Dat/Tiledata.txt", "Dat/Level1.txt", "tiles"));
+
+	SOMA::PlayMusic("caveMusic", -1, 2000);
 }
 
 void GameState::Update()
@@ -198,6 +203,8 @@ void GameState::Exit()
 	TEMA::Unload("Rock1");
 	TEMA::Unload("bg");
 	TEMA::Unload("tiles");
+	SOMA::Unload("pew", SOUND_SFX);
+	SOMA::Unload("caveMusic", SOUND_MUSIC);
 
 
 

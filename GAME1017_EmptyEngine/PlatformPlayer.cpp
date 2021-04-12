@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "EventManager.h"
 #include "TextureManager.h"
+#include "SoundManager.h"
 #include <cmath>
 #include "StateManager.h"
 
@@ -53,6 +54,7 @@ void PlatformPlayer::Update()
 	case STATE_IDLING:
 		if (EVMA::MousePressed(SDL_BUTTON_LEFT))
 		{
+			SOMA::PlaySound("pew");
 			if (m_facingLeft)
 			{
 				m_bullets.push_back(new PlayerBullet({ 0, 0, 172, 139 }, { this->GetDst()->x - 20, this->GetDst()->y + 40, 17.0f, 14.0f }, m_facingLeft));
@@ -88,6 +90,7 @@ void PlatformPlayer::Update()
 		// Move left and right.
 		if (EVMA::MousePressed(SDL_BUTTON_LEFT))
 		{
+			SOMA::PlaySound("pew");
 			if (m_facingLeft)
 			{
 				m_bullets.push_back(new PlayerBullet({ 0, 0, 172, 139 }, { this->GetDst()->x - 20, this->GetDst()->y + 50, 17.0f, 14.0f }, m_facingLeft));
@@ -131,6 +134,7 @@ void PlatformPlayer::Update()
 	case STATE_JUMPING:
 		if (EVMA::MousePressed(SDL_BUTTON_LEFT))
 		{
+			SOMA::PlaySound("pew");
 			if (m_facingLeft)
 			{
 				m_bullets.push_back(new PlayerBullet({ 0, 0, 172, 139 }, { this->GetDst()->x - 20, this->GetDst()->y + 50, 17.0f, 14.0f }, m_facingLeft));
