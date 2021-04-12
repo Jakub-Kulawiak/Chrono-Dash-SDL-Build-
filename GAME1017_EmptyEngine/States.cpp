@@ -101,6 +101,10 @@ GameState::GameState(){}
 
 void GameState::Enter() // Used for initialization.
 {
+	// Cave Music
+	SOMA::Load("Aud/Cave.wav", "Cave", SOUND_MUSIC);
+	SOMA::PlayMusic("Cave");
+
 	//Backgrounds
 	TEMA::Load("Img/background1.png", "bg");
 	m_objects.push_back(pair<string, GameObject*>("bg",

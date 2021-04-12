@@ -41,7 +41,6 @@ m_maxVelY(JUMPFORCE), m_grav(GRAV), m_drag(0.8), m_health(10)
 {
 	SOMA::Load("Aud/Jump.wav", "Jump", SOUND_SFX);
 	SOMA::Load("Aud/Shoot.wav", "Shoot", SOUND_SFX);
-	SOMA::Load("Aud/Jump.wav", "Jump", SOUND_SFX);
 
 	m_accelX = m_accelY = m_velX = m_velY = 0.0;
 	SetAnimation(5, 1, 5, 1635); // Initialize jump animation.
