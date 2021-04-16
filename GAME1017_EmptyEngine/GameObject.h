@@ -14,6 +14,14 @@ public: // Methods.
 	SDL_FRect* GetDst() { return &m_dst; }
 	const bool GetEnabled() const { return m_enabled; }
 	void SetEnabled(const bool e) { m_enabled = e; }
+
+	//gets the dst rect which is usable for collision 
+	SDL_FRect GetRect()
+	{
+		SDL_FRect dstRect = { this->m_dst.x, this->m_dst.y,this->m_dst.w,this->m_dst.h };
+		return dstRect;
+	}
+
 protected: // Attributes.
 	SDL_FRect m_dst;
 	bool m_enabled;
@@ -21,6 +29,8 @@ protected: // Methods.
 	GameObject() :m_dst({ 0,0,0,0 }), m_enabled(true) {}
 	GameObject(const SDL_FRect d) :m_dst(d), m_enabled(true) {}
 };
+
+
 
 class SpriteObject : public GameObject
 {
