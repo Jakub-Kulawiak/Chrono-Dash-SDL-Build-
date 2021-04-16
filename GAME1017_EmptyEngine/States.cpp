@@ -115,7 +115,7 @@ void GameState::Enter() // Used for initialization.
 	// Health Bar
 	TEMA::Load("Img/HealthBar.png", "HealthBar");
 	m_objects.push_back(pair<string, GameObject*>("HealthBar",
-		new HealthBar({ 0, 0, 96, 64 }, { 0, 0, 32, 32 })));
+		new HealthBar({ 0, 0, 32, 32 }, { 0, 0, 120, 120 })));
 
 	//Rock Platforms
 	TEMA::Load("Img/props1.png", "Rock1");
