@@ -88,6 +88,9 @@
     <ClCompile Include="RangedEnemy.cpp">
       <Filter>Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Objects\Tools/Base objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="RangedEnemy.h">
       <Filter>Objects\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>Objects\Tools/Base objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Img\Tiles.png">
@@ -189,6 +195,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Img\Portal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Img\HealthBar.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

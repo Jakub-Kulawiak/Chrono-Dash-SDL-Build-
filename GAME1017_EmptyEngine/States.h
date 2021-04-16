@@ -5,6 +5,7 @@
 #include "TiledLevel.h"
 #include "GameObject.h"
 #include "PlatformPlayer.h"
+#include "HealthBar.h"
 
 class State // This is the abstract base class for all states
 {
@@ -44,6 +45,7 @@ public:
 	virtual void Resume();
 private:TiledLevel* m_level = nullptr; 
 	   PlatformPlayer* m_pPlayer = nullptr;
+	   HealthBar* m_healthBar = nullptr;
 };
 
 class LoseState : public State
@@ -54,9 +56,6 @@ public:
 	virtual void Update();
 	virtual void Render();
 	virtual void Exit();
-
-
 };
 
 #endif
-

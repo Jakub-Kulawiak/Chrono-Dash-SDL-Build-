@@ -1,7 +1,6 @@
 #pragma once
 #ifndef _GAMEOBJECT_H_
 #define _GAMEOBJECT_H_
-
 #include "SDL.h"
 #include "Engine.h"
 #include "TextureManager.h"

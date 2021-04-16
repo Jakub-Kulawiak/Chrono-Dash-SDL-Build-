@@ -112,6 +112,11 @@ void GameState::Enter() // Used for initialization.
 	m_objects.push_back(pair<string, GameObject*>("bg",
 		new Image({ 0, 0, 960, 480 }, { 1024, 0, 1024, 768 }, "bg")));
 
+	// Health Bar
+	TEMA::Load("Img/HealthBar.png", "HealthBar");
+	m_objects.push_back(pair<string, GameObject*>("HealthBar",
+		new HealthBar({ 0, 0, 96, 64 }, { 0, 0, 32, 32 })));
+
 	//Rock Platforms
 	TEMA::Load("Img/props1.png", "Rock1");
 	m_objects.push_back(pair<string, GameObject*>("Rock1",
@@ -203,6 +208,7 @@ void GameState::Exit()
 	TEMA::Unload("Gate");
 	TEMA::Unload("Rock1");
 	TEMA::Unload("bg");
+	TEMA::Unload("HealthBar");
 	
 	for (auto& i : m_objects)
 	{

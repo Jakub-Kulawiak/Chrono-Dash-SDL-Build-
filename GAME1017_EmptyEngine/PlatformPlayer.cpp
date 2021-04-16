@@ -48,6 +48,7 @@ m_maxVelY(JUMPFORCE), m_grav(GRAV), m_drag(0.8), m_health(10)
 
 void PlatformPlayer::Update()
 {
+	cout << m_src.x << endl;
 	for (unsigned i = 0; i < m_bullets.size(); i++)
 	{
 		m_bullets[i]->Update();
@@ -63,7 +64,7 @@ void PlatformPlayer::Update()
 			{
 				m_bullets.push_back(new PlayerBullet({ 0, 0, 172, 139 }, { GetDst()->x - 20, GetDst()->y + 40, 17.0f, 14.0f }, m_facingLeft));
 				SOMA::PlaySound("Shoot");
-				SetAnimation(4, 1, 4, 2200);
+				SetAnimation(5, 1, 4, 2200);
 				m_state = STATE_SHOOTING;
 			}
 
@@ -71,7 +72,7 @@ void PlatformPlayer::Update()
 			{
 				m_bullets.push_back(new PlayerBullet({ 0, 0, 172, 139 }, { GetDst()->x, GetDst()->y + 40, 17.0f, 14.0f }, m_facingLeft));
 				SOMA::PlaySound("Shoot");
-				SetAnimation(4, 1, 4, 2200);
+				SetAnimation(5, 1, 4, 2200);
 				m_state = STATE_SHOOTING;
 			}
 		}
@@ -80,7 +81,7 @@ void PlatformPlayer::Update()
 		if (EVMA::KeyPressed(SDL_SCANCODE_A) || EVMA::KeyPressed(SDL_SCANCODE_D))
 		{
 			m_state = STATE_RUNNING;
-			SetAnimation(9, 1, 9, 550); // , 256
+			SetAnimation(5, 1, 9, 550); // , 256
 		}
 
 		// Transition to jump.
@@ -137,7 +138,7 @@ void PlatformPlayer::Update()
 		if (!EVMA::KeyHeld(SDL_SCANCODE_A) && !EVMA::KeyHeld(SDL_SCANCODE_D))
 		{
 			m_state = STATE_IDLING;
-			SetAnimation(10, 1, 10, 1150); // , 256
+			SetAnimation(5, 1, 10, 1150); // , 256
 		}
 		break;
 	case STATE_JUMPING:
@@ -174,7 +175,7 @@ void PlatformPlayer::Update()
 		if (m_grounded)
 		{
 			m_state = STATE_RUNNING;
-			SetAnimation(9, 1, 9, 550);
+			SetAnimation(5, 1, 9, 550);
 		}
 		break;
 	case STATE_SHOOTING:
@@ -184,13 +185,13 @@ void PlatformPlayer::Update()
 		{
 			m_counter = 0;
 			m_state = STATE_IDLING;
-			SetAnimation(10, 1, 10, 1150);
+			SetAnimation(5, 1, 10, 1150);
 		}
 
 		if (EVMA::KeyPressed(SDL_SCANCODE_A) || EVMA::KeyPressed(SDL_SCANCODE_D))
 		{
 			m_state = STATE_RUNNING;
-			SetAnimation(9, 1, 9, 550); // , 256
+			SetAnimation(5, 1, 9, 550); // , 256
 		}
 
 		else if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)

@@ -148,6 +148,7 @@
     <ClCompile Include="EnemySpider.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="LoseStateObjects.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MathManager.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HealthBar.h" />
     <ClInclude Include="LoseStateObjects.h" />
     <ClInclude Include="MathManager.h" />
     <ClInclude Include="PlatformPlayer.h" />
@@ -188,6 +190,7 @@
     <Image Include="Img\Bat.png" />
     <Image Include="Img\button.png" />
     <Image Include="Img\Gate.png" />
+    <Image Include="Img\HealthBar.png" />
     <Image Include="Img\Player.png" />
     <Image Include="Img\Portal.png" />
     <Image Include="Img\props1.png" />
