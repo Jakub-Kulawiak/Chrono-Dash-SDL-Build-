@@ -126,17 +126,17 @@ void GameState::Enter() // Used for initialization.
 	//Player Object
 	TEMA::Load("Img/Player.png", "player");
 	TEMA::Load("Img/Bullet.png", "Bullet");
-	m_objects.emplace("player", new PlatformPlayer({ 0,0,577,529 }, { 300.0f, 450.0f, 100.0f, 100.0f }));
+	m_objects.emplace("player", m_pPlayer = new PlatformPlayer({ 0,0,577,529 }, { 300.0f, 450.0f, 100.0f, 100.0f }));
 
 	TEMA::Load("Img/Tiles.png", "tiles");
-	m_objects.emplace("level", new TiledLevel(50, 200, 32, 32, "Dat/Tiledata.txt", "Dat/Level1.txt", "tiles"));
+	m_objects.emplace("level", m_pGrid = new TiledLevel(50, 200, 32, 32, "Dat/Tiledata.txt", "Dat/Level1.txt", "tiles"));
 
 	SOMA::PlayMusic("caveMusic", -1, 2000);
 }
 
 void GameState::Update()
 {
-
+	
 
 	/*if (m_pPlayer->GetHealth() <= 0)
 	{

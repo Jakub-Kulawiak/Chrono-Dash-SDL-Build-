@@ -44,6 +44,8 @@ public:
 	virtual void Resume();
 private:
 	bool m_bgScrollX = false, m_bgScrollY = false;
+	PlatformPlayer* m_pPlayer;
+	TiledLevel* m_pGrid;
 };
 
 class LoseState : public State

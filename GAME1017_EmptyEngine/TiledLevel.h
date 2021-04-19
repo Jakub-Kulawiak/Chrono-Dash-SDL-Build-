@@ -13,7 +13,11 @@ class Tile : public SpriteObject
 {
 public:
 	Tile(SDL_Rect s, SDL_FRect d, bool o, bool h)
-		:SpriteObject(s, d), m_obstacle(o), m_hazard(h) {}
+		: SpriteObject(s, d), m_obstacle(o), m_hazard(h)
+	{
+		
+	}
+
 	Tile* Clone() { return new Tile(m_src, m_dst, m_obstacle, m_hazard); }
 	bool IsObstacle() { return m_obstacle; }
 	void SetXY(float x, float y) { m_dst.x = x; m_dst.y = y; }
@@ -21,6 +25,7 @@ public:
 	void Render() {}
 private:
 	bool m_obstacle, m_hazard;
+	
 };
 
 class TiledLevel : public GameObject
@@ -29,7 +34,7 @@ public:
 	TiledLevel(const unsigned short r, const unsigned short c, const int w, const int h,
 		const char* tileData, const char* levelData, const char* tileKey);
 	~TiledLevel();
-	void Update() {} // Empty.
+	void Update(); // Empty.
 	void Render();
 	vector<Tile*>& GetObstacles();
 private:
@@ -38,6 +43,7 @@ private:
 	map<char, Tile*> m_tiles; // Our map of 16 prototype Tile objects.
 	vector<vector<Tile*>> m_level; // 2D vector.
 	vector<Tile*> m_obstacles;
+	vector<Tile*> m_map;
 };
 
 #endif

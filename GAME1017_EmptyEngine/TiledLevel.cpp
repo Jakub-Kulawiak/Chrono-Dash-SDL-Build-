@@ -1,24 +1,28 @@
 #include "TiledLevel.h"
+
+#include "EndGoal.h"
 #include "EventManager.h"
 
 
 void Tile::Update()
 {
+	
 	if(EVMA::KeyHeld(SDL_SCANCODE_W))
 	{
+		m_dst.y += 15;
 		
 	}
 	else if(EVMA::KeyHeld(SDL_SCANCODE_S))
 	{
-		
+		m_dst.y -= 15;
 	}
-	if(EVMA::KeyHeld(SDL_SCANCODE_A))
+	if(EVMA::KeyHeld(SDL_SCANCODE_D))
 	{
-		
+		m_dst.x -= 15;
 	}
-	else if (EVMA::KeyHeld(SDL_SCANCODE_D))
+	else if(EVMA::KeyHeld(SDL_SCANCODE_A))
 	{
-
+		m_dst.x += 15;
 	}
 }
 
@@ -35,6 +39,7 @@ TiledLevel::TiledLevel(const unsigned short r, const unsigned short c, const int
 		{
 			inFile >> key >> x >> y >> obs >> haz;
 			m_tiles.emplace(key, new Tile({ x * w, y * h, w, h }, { 0.0f, 0.0f, (float)w, (float)h }, obs, haz));
+			
 		}
 	}
 	inFile.close();
@@ -79,6 +84,20 @@ TiledLevel::~TiledLevel()
 		i->second = nullptr;
 	}
 	m_tiles.clear();
+}
+
+void TiledLevel::Update()
+{
+	m_level.resize(m_rows); // Important or we cannot use subscripts.
+	for (unsigned short row = 0; row < m_rows; row++)
+	{
+		m_level[row].resize(m_cols);
+		for (unsigned short col = 0; col < m_cols; col++)
+		{
+			m_level[row][col]->Update();
+
+		}
+	}
 }
 
 void TiledLevel::Render()
