@@ -36,9 +36,10 @@ public: // Methods.
 	void SetX(float x);
 	void SetY(float y);
 	int GetHealth();
+	void LoseHealth();
 private: // Properties.
 	vector<PlayerBullet*> m_bullets;
-	int m_counter = 0;
+	int m_shootCounter = 0, m_deathCounter = 0;
 	bool m_grounded, m_facingLeft;
 	double m_accelX,
 		m_accelY,
@@ -48,7 +49,7 @@ private: // Properties.
 		m_maxVelY,
 		m_drag,
 		m_grav;
-	enum PlayerState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING, STATE_SHOOTING } m_state;
+	enum PlayerState { STATE_IDLING, STATE_RUNNING, STATE_JUMPING, STATE_SHOOTING, STATE_DEAD } m_state;
 	int m_health;
 };
 

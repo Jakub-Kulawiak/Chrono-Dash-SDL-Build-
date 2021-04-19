@@ -33,7 +33,7 @@ protected: // Methods.
 
 class SpriteObject : public GameObject
 {
-public: 
+public:
 	virtual void Render() = 0;
 	SDL_Rect* GetSrc() { return &m_src; }
 protected: // Attributes.

@@ -9,6 +9,7 @@ public:
 	HealthBar(SDL_Rect s, SDL_FRect d);
 	void Update();
 	void Render();
+	void LoseHealth();
 };
 
 #endif

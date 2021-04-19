@@ -37,11 +37,8 @@ void PlayerBullet::Render()
 
 PlatformPlayer::PlatformPlayer(SDL_Rect s, SDL_FRect d) : AnimatedSpriteObject(s, d),
 m_state(STATE_JUMPING), m_grounded(true), m_facingLeft(false), m_maxVelX(10.0),
-m_maxVelY(JUMPFORCE), m_grav(GRAV), m_drag(0.8), m_health(10)
+m_maxVelY(JUMPFORCE), m_grav(GRAV), m_drag(0.8), m_health(5)
 {
-	SOMA::Load("Aud/Jump.wav", "Jump", SOUND_SFX);
-	SOMA::Load("Aud/Shoot.wav", "Shoot", SOUND_SFX);
-
 	m_accelX = m_accelY = m_velX = m_velY = 0.0;
 	SetAnimation(5, 1, 5, 1635); // Initialize jump animation.
 }
@@ -179,11 +176,11 @@ void PlatformPlayer::Update()
 		}
 		break;
 	case STATE_SHOOTING:
-		m_counter++;
+		m_shootCounter++;
 
-		if (m_counter == 10)
+		if (m_shootCounter == 30)
 		{
-			m_counter = 0;
+			m_shootCounter = 0;
 			m_state = STATE_IDLING;
 			SetAnimation(5, 1, 10, 1150);
 		}
@@ -201,6 +198,15 @@ void PlatformPlayer::Update()
 			m_state = STATE_JUMPING;
 			SetAnimation(5, 1, 5, 1635);
 		}
+		break;
+	case STATE_DEAD:
+		m_deathCounter++;
+
+		if (m_deathCounter == 50)
+		{
+			STMA::ChangeState(new LoseState());
+		}
+
 		break;
 	}
 	
@@ -260,3 +266,13 @@ void PlatformPlayer::SetY(float y) { m_dst.y = y; }
 
 int PlatformPlayer::GetHealth() { return m_health; }
 
+void PlatformPlayer::LoseHealth()
+{
+	m_health--;
+	if (m_health == 0)
+	{
+		SOMA::PlaySound("PlayerDead");
+		m_state = STATE_DEAD;
+		SetAnimation(5, 1, 9);
+	}
+}

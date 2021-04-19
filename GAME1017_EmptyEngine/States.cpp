@@ -105,6 +105,12 @@ void GameState::Enter() // Used for initialization.
 	SOMA::Load("Aud/Cave.wav", "Cave", SOUND_MUSIC);
 	SOMA::PlayMusic("Cave");
 
+	// Sound Effects
+	SOMA::Load("Aud/Jump.wav", "Jump", SOUND_SFX);
+	SOMA::Load("Aud/Shoot.wav", "Shoot", SOUND_SFX);
+	SOMA::Load("Aud/Hit.wav", "Hit", SOUND_SFX);
+	SOMA::Load("Aud/PlayerDead.wav", "PlayerDead", SOUND_SFX);
+
 	//Backgrounds
 	TEMA::Load("Img/background1.png", "bg");
 	m_objects.push_back(pair<string, GameObject*>("bg",
@@ -115,7 +121,7 @@ void GameState::Enter() // Used for initialization.
 	// Health Bar
 	TEMA::Load("Img/HealthBar.png", "HealthBar");
 	m_objects.push_back(pair<string, GameObject*>("HealthBar",
-		new HealthBar({ 0, 0, 32, 32 }, { 0, 0, 120, 120 })));
+		m_healthBar = new HealthBar({ 0, 0, 32, 32 }, { 0, 0, 120, 120 })));
 
 	//Rock Platforms
 	TEMA::Load("Img/props1.png", "Rock1");
@@ -179,11 +185,22 @@ void GameState::Update()
 		i.second->Update();
 		if (STMA::StateChanging()) return;
 	}
-		
-	if (m_pPlayer->GetHealth() <= 0)
+
+	if (COMA::AABBCheck(m_pPlayer->GetRect(), GetGo("enemyMelee")->GetRect()) || COMA::AABBCheck(m_pPlayer->GetRect(), GetGo("enemyMeleeBat")->GetRect())
+		|| COMA::AABBCheck(m_pPlayer->GetRect(), GetGo("enemySpider")->GetRect()))
 	{
-		LoseState* m_pPlayerHealth = new LoseState;
-		STMA::ChangeState(m_pPlayerHealth);
+		SOMA::PlaySound("Hit");
+		m_pPlayer->LoseHealth();
+		m_healthBar->LoseHealth();
+
+			if (m_pPlayer->IsFacingLeft())
+			{
+				m_pPlayer->GetDst()->x += 300;
+			}
+			else
+			{
+				m_pPlayer->GetDst()->x -= 300;
+			}
 	}
 }
 
@@ -225,7 +242,7 @@ LoseState::LoseState(){}
 void LoseState::Enter()
 {
 	cout << "Entering LoseState..." << endl;
-	
+
 	TEMA::Load("Img/Game Over.png", "gameOver");
 	m_objects.push_back(pair<string, GameObject*>("gameOver",
 		new LoseStateObjects({ 0, 0, 400,100 }, { 310.0f, 50.0f, 390.0f, 100 })));
