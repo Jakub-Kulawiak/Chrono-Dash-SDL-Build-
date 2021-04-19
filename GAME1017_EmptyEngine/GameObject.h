@@ -14,6 +14,12 @@ public: // Methods.
 	SDL_FRect* GetDst() { return &m_dst; }
 	const bool GetEnabled() const { return m_enabled; }
 	void SetEnabled(const bool e) { m_enabled = e; }
+	SDL_FRect GetRect() const
+	{
+		const SDL_FRect dstRect = { this->m_dst.x, this->m_dst.y,this->m_dst.w,this->m_dst.h };
+		return dstRect;
+	}
+
 protected: // Attributes.
 	SDL_FRect m_dst;
 	bool m_enabled;

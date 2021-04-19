@@ -1,8 +1,29 @@
 #include "TiledLevel.h"
+#include "EventManager.h"
 
+
+void Tile::Update()
+{
+	if(EVMA::KeyHeld(SDL_SCANCODE_W))
+	{
+		
+	}
+	else if(EVMA::KeyHeld(SDL_SCANCODE_S))
+	{
+		
+	}
+	if(EVMA::KeyHeld(SDL_SCANCODE_A))
+	{
+		
+	}
+	else if (EVMA::KeyHeld(SDL_SCANCODE_D))
+	{
+
+	}
+}
 
 TiledLevel::TiledLevel(const unsigned short r, const unsigned short c, const int w, const int h,
-	const char* tileData, const char* levelData, const char* tileKey) :m_rows(r), m_cols(c), m_tileKey(tileKey)
+                       const char* tileData, const char* levelData, const char* tileKey) :m_rows(r), m_cols(c), m_tileKey(tileKey)
 {
 	ifstream inFile(tileData);
 	if (inFile.is_open())
